@@ -13,7 +13,9 @@
       "Bash(export PATH=\"$PATH:/c/Program Files/GitHub CLI\")",
       "Bash(gh auth *)",
       "Bash(git remote *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "WebFetch(domain:www.minusmarco.com)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp"
     ]
   }
 }

@@ -5,10 +5,12 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const NAV_LINKS = [
+  { label: "Home",      href: "/" },
   { label: "Reviews",   href: "/reviews" },
   { label: "Articles",  href: "/articles" },
   { label: "Videos",    href: "/videos" },
   { label: "Community", href: "/community" },
+  { label: "About",     href: "/about" },
 ];
 
 export default function Navbar() {
