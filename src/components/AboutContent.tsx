@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const PLATFORMS = [
   { label: "Substack",  desc: "Essays, reviews & opinion",     href: "https://substack.com/@minusmarco",   icon: "✦" },
@@ -20,7 +20,7 @@ const FAVORITES = [
   { title: "Metal Gear Solid V",             image: "https://cdn.akamai.steamstatic.com/steam/apps/287700/library_600x900.jpg",  position: "center" },
   { title: "Prey",                           image: "https://cdn.akamai.steamstatic.com/steam/apps/480490/library_600x900.jpg",  position: "center" },
   { title: "ABZU",                           image: "https://cdn.akamai.steamstatic.com/steam/apps/384190/library_600x900.jpg",  position: "center" },
-  { title: "Ultimate Marvel vs. Capcom 3",   image: "https://cdn.akamai.steamstatic.com/steam/apps/225140/header.jpg",           position: "top"    },
+  { title: "Hollow Knight",                  image: "https://cdn.akamai.steamstatic.com/steam/apps/367520/library_600x900.jpg", position: "center" },
 ];
 
 function FadeUp({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
@@ -36,6 +36,36 @@ function FadeUp({ children, delay = 0, className = "" }: { children: React.React
     >
       {children}
     </motion.div>
+  );
+}
+
+function GameCard({ game }: { game: { title: string; image: string; position: string } }) {
+  const [errored, setErrored] = useState(false);
+  return (
+    <div className="group relative rounded-lg overflow-hidden border border-border bg-bg aspect-[2/3] cursor-default hover:border-accent/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/50">
+      {errored ? (
+        <div className="absolute inset-0 bg-gradient-to-br from-surface-raised to-bg flex items-center justify-center p-4">
+          <p className="font-display text-xs font-bold text-text-muted text-center leading-tight">{game.title}</p>
+        </div>
+      ) : (
+        <Image
+          src={game.image}
+          alt={game.title}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          style={{ objectPosition: game.position }}
+          onError={() => setErrored(true)}
+        />
+      )}
+      {!errored && (
+        <>
+          <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+            <p className="font-display text-xs font-bold text-text-primary leading-tight">{game.title}</p>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -272,21 +302,7 @@ export default function AboutContent() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             {FAVORITES.map((game, i) => (
               <FadeUp key={game.title} delay={i * 0.07}>
-                <div className="group relative rounded-lg overflow-hidden border border-border bg-bg aspect-[2/3] cursor-default hover:border-accent/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/50">
-                  <Image
-                    src={game.image}
-                    alt={game.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    style={{ objectPosition: game.position }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    <p className="font-display text-xs font-bold text-text-primary leading-tight">
-                      {game.title}
-                    </p>
-                  </div>
-                </div>
+                <GameCard game={game} />
               </FadeUp>
             ))}
           </div>

@@ -1,11 +1,12 @@
 import { sanityFetch } from "@/sanity/lib/client";
 import { articleBySlugQuery, allArticlesQuery } from "@/sanity/lib/queries";
-
-export const dynamic = "force-dynamic";
 import { urlFor } from "@/sanity/lib/image";
 import { PortableText, PortableTextBlock } from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
+import ReadingProgress from "@/components/ReadingProgress";
+
+export const dynamic = "force-dynamic";
 import { notFound } from "next/navigation";
 
 type Article = {
@@ -98,6 +99,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   return (
     <article className="min-h-screen pt-20">
+      <ReadingProgress />
       {/* Cover image header */}
       <div className="relative h-[60vh] bg-surface-raised overflow-hidden">
         {imageUrl ? (
