@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 
@@ -14,12 +15,12 @@ const PLATFORMS = [
 ];
 
 const FAVORITES = [
-  "Spider-Man",
-  "Destiny 2",
-  "Metal Gear Solid V",
-  "Prey",
-  "ABZÛ",
-  "Marvel vs. Capcom",
+  { title: "Marvel's Spider-Man Remastered", steamId: "1817070" },
+  { title: "Destiny 2",                      steamId: "1085660" },
+  { title: "Metal Gear Solid V",             steamId: "287700"  },
+  { title: "Prey",                           steamId: "480490"  },
+  { title: "ABZU",                           steamId: "384190"  },
+  { title: "Ultimate Marvel vs. Capcom 3",   steamId: "225140"  },
 ];
 
 function FadeUp({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
@@ -75,7 +76,7 @@ export default function AboutContent() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mt-6 text-text-secondary text-lg leading-relaxed max-w-lg"
             >
-              Video game journalist, community advocate, and the founder of Minus Marco —
+              Video game journalist, community advocate, and the founder of Minus Marco,
               a platform built to amplify underrepresented voices in gaming.
             </motion.p>
 
@@ -136,7 +137,7 @@ export default function AboutContent() {
           </blockquote>
           <p className="mt-6 text-text-secondary max-w-2xl leading-relaxed">
             Just like downloadable content enhances a game you already love, Minus Marco is
-            supplementary — built to deepen the stories already being told, not to compete
+            supplementary, built to deepen the stories already being told, not to compete
             with them. The journalism stays in front. The story comes first.
           </p>
         </FadeUp>
@@ -159,7 +160,7 @@ export default function AboutContent() {
               </h2>
               <p className="text-text-secondary leading-relaxed">
                 Marco grew up in Central California's agricultural heartland, in a Mexican-immigrant
-                household where video games were more than entertainment — they were a portal. It
+                household where video games were more than entertainment. They were a portal. It
                 started with Marvel vs. Capcom on PlayStation and never really stopped.
               </p>
             </FadeUp>
@@ -170,7 +171,7 @@ export default function AboutContent() {
               </h2>
               <p className="text-text-secondary leading-relaxed">
                 Marco studied journalism at Fresno City College before earning a BA in Media,
-                Communications & Journalism from Fresno State — specializing in advertising and
+                Communications & Journalism from Fresno State, specializing in advertising and
                 PR. He's applied that craft everywhere from The Collegian and The Rampage to the
                 City of Fresno's marketing office.
               </p>
@@ -183,7 +184,7 @@ export default function AboutContent() {
               <p className="text-text-secondary leading-relaxed">
                 Minus Marco exists to inform, represent, and build a future for youth, minority,
                 and smaller communities in and around the gaming industry. Gaming culture shaped
-                Marco — now he's trying to make sure it reflects the people who love it most.
+                Marco. Now he's trying to make sure it reflects the people who love it most.
               </p>
             </FadeUp>
 
@@ -216,7 +217,7 @@ export default function AboutContent() {
           </h2>
           <p className="mt-8 text-text-secondary text-lg max-w-2xl mx-auto leading-relaxed">
             Agriculture. Immigration. Minority communities. These are the backgrounds that built
-            the people who play games — and they deserve to see themselves in the press that covers it.
+            the people who play games. They deserve to see themselves in the press that covers it.
           </p>
         </FadeUp>
       </section>
@@ -268,12 +269,23 @@ export default function AboutContent() {
               <span className="font-display text-xs font-bold uppercase tracking-widest text-accent">In the Rotation</span>
             </div>
           </FadeUp>
-          <div className="flex flex-wrap gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             {FAVORITES.map((game, i) => (
-              <FadeUp key={game} delay={i * 0.06}>
-                <span className="rounded-md border border-border bg-bg px-4 py-2 font-sans text-sm font-medium text-text-secondary hover:border-accent hover:text-accent transition-colors duration-200 cursor-default">
-                  {game}
-                </span>
+              <FadeUp key={game.steamId} delay={i * 0.07}>
+                <div className="group relative rounded-lg overflow-hidden border border-border bg-bg aspect-[2/3] cursor-default hover:border-accent/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/50">
+                  <Image
+                    src={`https://cdn.akamai.steamstatic.com/steam/apps/${game.steamId}/library_600x900.jpg`}
+                    alt={game.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <p className="font-display text-xs font-bold text-text-primary leading-tight">
+                      {game.title}
+                    </p>
+                  </div>
+                </div>
               </FadeUp>
             ))}
           </div>
@@ -287,7 +299,7 @@ export default function AboutContent() {
             Let's talk games.
           </h2>
           <p className="mt-4 text-text-secondary text-lg max-w-md mx-auto">
-            Pitches, collabs, press access, or just want to say hello — Marco's inbox is open.
+            Pitches, collabs, press access, or just want to say hello. Marco's inbox is open.
           </p>
           <a
             href="mailto:marco.hernandez5692@gmail.com"

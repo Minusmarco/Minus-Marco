@@ -105,7 +105,7 @@ export default async function ArticlesPage() {
         {articles.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-32 gap-4">
             <span className="font-display text-6xl font-bold text-text-muted opacity-20">MM</span>
-            <p className="text-text-secondary text-lg">No articles yet — check back soon.</p>
+            <p className="text-text-secondary text-lg">No articles yet. Check back soon.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

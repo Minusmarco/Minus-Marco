@@ -6,7 +6,7 @@ export default function CommunityPage() {
   return (
     <ComingSoon
       title="Community"
-      description="The Minus Marco community hub — events, discussions, and more. Coming soon."
+      description="The Minus Marco community hub: events, discussions, and more. Coming soon."
     />
   );
 }

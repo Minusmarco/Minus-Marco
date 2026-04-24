@@ -6,7 +6,7 @@ export default function VideosPage() {
   return (
     <ComingSoon
       title="Videos"
-      description="Video content, previews, and deep dives — coming soon."
+      description="Video content, previews, and deep dives. Coming soon."
     />
   );
 }

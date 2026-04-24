@@ -45,7 +45,7 @@ export default function HeroSection() {
     <section className="relative flex flex-col min-h-screen pt-20">
       {/* Main featured story */}
       <div className="relative flex-1 flex items-end min-h-[70vh] overflow-hidden bg-surface">
-        {/* Background — gradient placeholder until real image is supplied */}
+        {/* Background gradient placeholder until real image is supplied */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0D1117] via-[#0E1520] to-bg" />
 
         {/* Accent glow */}

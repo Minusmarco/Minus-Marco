@@ -6,7 +6,7 @@ export default function ReviewsPage() {
   return (
     <ComingSoon
       title="Reviews"
-      description="In-depth game reviews from Minus Marco — coming soon."
+      description="In-depth game reviews from Minus Marco. Coming soon."
     />
   );
 }
