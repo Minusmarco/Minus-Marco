@@ -11,7 +11,9 @@
       "Bash(gh pr create --repo Minusmarco/Minus-Marco --head EthanHaeberle:main --base main --title 'Initial site scaffold: Next.js 16, Tailwind v4, Navbar & Hero' --body ' *)",
       "Bash(winget install *)",
       "Bash(export PATH=\"$PATH:/c/Program Files/GitHub CLI\")",
-      "Bash(gh auth *)"
+      "Bash(gh auth *)",
+      "Bash(git remote *)",
+      "Bash(git push *)"
     ]
   }
 }
