@@ -1,7 +1,9 @@
+import HeroSection from "@/components/HeroSection";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center justify-center">
-      <h1 className="text-4xl font-bold">Minus Marco</h1>
+    <main className="flex flex-col flex-1">
+      <HeroSection />
     </main>
   );
 }
