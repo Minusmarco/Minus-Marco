@@ -65,8 +65,8 @@ export default function AboutContent() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="font-display text-6xl sm:text-7xl lg:text-8xl font-bold text-text-primary leading-[0.95] tracking-tight"
             >
-              MARCO<br />
-              <span className="text-accent">HERNAN</span>DEZ
+              <span className="text-accent">MARCO</span><br />
+              HERNANDEZ
             </motion.h1>
 
             <motion.p
