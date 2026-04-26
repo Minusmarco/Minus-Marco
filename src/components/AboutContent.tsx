@@ -131,26 +131,29 @@ export default function AboutContent() {
             </motion.div>
           </div>
 
-          {/* Photo placeholder */}
+          {/* Marco's photo */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.15 }}
             className="relative hidden lg:flex items-center justify-center"
           >
-            <div className="relative w-full max-w-sm aspect-[3/4] rounded-xl overflow-hidden bg-surface border border-border">
-              <div className="absolute inset-0 bg-gradient-to-br from-surface-raised via-[#0E1520] to-bg flex items-center justify-center">
-                <span className="font-display text-8xl font-bold text-text-muted opacity-10">MM</span>
-              </div>
-              {/* Swap in Marco's headshot: <Image src="/marco.jpg" fill className="object-cover" alt="Marco Hernandez" /> */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-bg to-transparent">
-                <p className="font-display text-sm font-bold uppercase tracking-widest text-accent">
+            <div className="relative w-full max-w-sm aspect-[3/4] rounded-xl overflow-hidden bg-surface border border-border shadow-2xl shadow-black/60">
+              <Image
+                src="/marco.avif"
+                fill
+                className="object-cover object-top"
+                alt="Marco Hernandez"
+                priority
+              />
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-bg/90 via-bg/40 to-transparent">
+                <p className="font-display text-sm font-bold uppercase tracking-widest text-[#f6b327]">
                   Fresno, CA
                 </p>
               </div>
             </div>
-            {/* Floating accent tag */}
-            <div className="absolute -bottom-4 -right-4 rounded-lg bg-accent px-4 py-2 shadow-xl">
+            {/* Floating gold tag */}
+            <div className="absolute -bottom-4 -right-4 rounded-lg bg-[#f6b327] px-4 py-2 shadow-xl shadow-[#f6b327]/20">
               <p className="font-display text-xs font-bold uppercase tracking-widest text-bg">Est. 2026</p>
             </div>
           </motion.div>
@@ -161,9 +164,9 @@ export default function AboutContent() {
       <section className="border-b border-border bg-surface">
         <FadeUp className="max-w-7xl mx-auto px-6 py-16">
           <blockquote className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary leading-tight max-w-4xl">
-            <span className="text-accent">"</span>
+            <span className="text-[#f6b327]">"</span>
             The expansion pack to your game.
-            <span className="text-accent">"</span>
+            <span className="text-[#f6b327]">"</span>
           </blockquote>
           <p className="mt-6 text-text-secondary max-w-2xl leading-relaxed">
             Just like downloadable content enhances a game you already love, Minus Marco is
@@ -241,7 +244,7 @@ export default function AboutContent() {
           }}
         />
         <FadeUp className="relative max-w-7xl mx-auto px-6 py-20 text-center">
-          <p className="font-display text-xs font-bold uppercase tracking-widest text-accent mb-6">Mission</p>
+          <p className="font-display text-xs font-bold uppercase tracking-widest text-[#f6b327] mb-6">Mission</p>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-text-primary max-w-4xl mx-auto leading-tight">
             Amplify the voices gaming forgot to invite.
           </h2>
@@ -320,7 +323,7 @@ export default function AboutContent() {
           </p>
           <a
             href="mailto:marco.hernandez5692@gmail.com"
-            className="mt-8 inline-flex items-center gap-2 rounded-md bg-accent px-8 py-3 font-sans font-semibold text-bg hover:bg-accent-hover transition-colors duration-200"
+            className="mt-8 inline-flex items-center gap-2 rounded-md bg-[#f6b327] px-8 py-3 font-sans font-semibold text-bg hover:bg-[#fac44a] transition-colors duration-200"
           >
             marco.hernandez5692@gmail.com
           </a>

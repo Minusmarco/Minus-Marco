@@ -15,7 +15,17 @@
       "Bash(git remote *)",
       "Bash(git push *)",
       "WebFetch(domain:www.minusmarco.com)",
-      "mcp__Claude_in_Chrome__tabs_context_mcp"
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Read(//c/Users/haebe/Downloads/**)",
+      "Bash(unzip -l \"Logo-20260425T001632Z-3-001.zip\")",
+      "Bash(cp \"/c/Users/haebe/Downloads/43E8027B-E177-4A0F-BA48-7FE4E09BBCD0_PNG.avif\" \"/c/Users/haebe/OneDrive/Documents/GitHub/Minus-Marco/public/marco.avif\")",
+      "Bash(cp \"/c/Users/haebe/Downloads/MM-Logos/Logo/Transparent/Logo Transparent 1.png\" \"/c/Users/haebe/OneDrive/Documents/GitHub/Minus-Marco/public/logo-full.png\")",
+      "Bash(cp \"/c/Users/haebe/Downloads/MM-Logos/Logo/mm\\(Icon\\)Blue-13.png\" \"/c/Users/haebe/OneDrive/Documents/GitHub/Minus-Marco/public/logo-icon.png\")",
+      "Bash(cp \"/c/Users/haebe/Downloads/MM-Logos/Logo/Transparent/Transparent Mark 1.png\" \"/c/Users/haebe/OneDrive/Documents/GitHub/Minus-Marco/public/logo-mark.png\")",
+      "Bash(cp \"/c/Users/haebe/Downloads/MM-Logos/Logo/Transparent/Logo Transparent 2.png\" \"/c/Users/haebe/OneDrive/Documents/GitHub/Minus-Marco/public/logo-full-2.png\")",
+      "Bash(npx next *)",
+      "Read(//c/Windows/Fonts/**)",
+      "Read(//c/Users/haebe/AppData/Local/Microsoft/Windows/Fonts/**)"
     ]
   }
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -42,13 +43,15 @@ export default function Navbar() {
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           {/* Logo */}
-          <Link href="/" onClick={() => setMenuOpen(false)} className="flex items-center gap-3 group z-10">
-            <div className="h-8 w-8 rounded-sm bg-accent flex items-center justify-center text-bg font-display font-bold text-lg select-none">
-              M
-            </div>
-            <span className="font-display text-xl font-bold tracking-wide text-text-primary group-hover:text-accent transition-colors duration-200">
-              MINUS MARCO
-            </span>
+          <Link href="/" onClick={() => setMenuOpen(false)} className="flex items-center z-10 group">
+            <Image
+              src="/logo-icon.png"
+              alt="Minus Marco"
+              width={48}
+              height={48}
+              className="h-12 w-12 object-contain rounded-sm opacity-90 group-hover:opacity-100 transition-opacity duration-200"
+              priority
+            />
           </Link>
 
           {/* Desktop nav links */}
@@ -121,6 +124,9 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="fixed inset-0 z-40 bg-bg flex flex-col pt-24 px-8 pb-12"
           >
+            <div className="absolute top-5 left-6">
+              <Image src="/logo-icon.png" alt="Minus Marco" width={36} height={36} className="h-9 w-9 object-contain rounded-sm" />
+            </div>
             <nav className="flex flex-col gap-2 flex-1">
               {NAV_LINKS.map((link, i) => (
                 <motion.div

@@ -18,19 +18,24 @@
 @theme inline {
   /* Background layers */
   --color-bg:             #09090E;
-  --color-surface:        #111318;
-  --color-surface-raised: #1A1C24;
-  --color-border:         #23252F;
+  --color-surface:        #0E1018;
+  --color-surface-raised: #181B26;
+  --color-border:         #1E2130;
 
   /* Text */
   --color-text-primary:   #EEEEF5;
   --color-text-secondary: #8A8B9A;
   --color-text-muted:     #55566A;
 
-  /* Brand accent, pulled from logo */
-  --color-accent:         #2AB5F5;
-  --color-accent-hover:   #54C8FF;
-  --color-accent-dim:     #2AB5F520;
+  /* Brand blue — #2cabe2 from brand kit */
+  --color-accent:         #2cabe2;
+  --color-accent-hover:   #44bef0;
+  --color-accent-dim:     #2cabe218;
+
+  /* Brand gold — #f6b327 from brand kit */
+  --color-gold:           #f6b327;
+  --color-gold-hover:     #fac44a;
+  --color-gold-dim:       #f6b32718;
 
   /* Fonts */
   --font-display: var(--font-barlow);

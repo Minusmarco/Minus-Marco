@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 const FEATURED = {
@@ -37,13 +38,18 @@ export default function HeroSection() {
           backgroundSize: "60px 60px",
         }} />
 
+        {/* Logo watermark */}
+        <div className="absolute top-8 right-8 opacity-[0.04] pointer-events-none select-none hidden lg:block">
+          <Image src="/logo-full.png" alt="" width={320} height={120} className="w-80 h-auto object-contain" />
+        </div>
+
         <motion.div
           variants={stagger}
           initial="hidden"
           animate="show"
           className="relative z-10 w-full max-w-7xl mx-auto px-6 pb-14"
         >
-          <motion.span variants={fadeUp} className="inline-block mb-5 rounded-sm bg-accent px-3 py-1 font-display text-xs font-bold uppercase tracking-widest text-bg">
+          <motion.span variants={fadeUp} className="inline-block mb-5 rounded-sm bg-[#f6b327] px-3 py-1 font-display text-xs font-bold uppercase tracking-widest text-bg">
             {FEATURED.category}
           </motion.span>
 

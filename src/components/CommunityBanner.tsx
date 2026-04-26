@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function CommunityBanner() {
   return (
@@ -6,6 +7,10 @@ export default function CommunityBanner() {
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-bg to-bg" />
       <div className="absolute -top-24 -left-24 h-[400px] w-[400px] rounded-full bg-accent opacity-[0.07] blur-[100px] pointer-events-none" />
+      {/* Logo watermark */}
+      <div className="absolute bottom-0 right-0 opacity-[0.04] pointer-events-none select-none translate-x-8 translate-y-4">
+        <Image src="/logo-mark.png" alt="" width={220} height={220} className="w-56 h-56 object-contain" />
+      </div>
       <div className="absolute inset-0 opacity-[0.02]" style={{
         backgroundImage: "linear-gradient(var(--color-text-primary) 1px, transparent 1px), linear-gradient(90deg, var(--color-text-primary) 1px, transparent 1px)",
         backgroundSize: "40px 40px",
