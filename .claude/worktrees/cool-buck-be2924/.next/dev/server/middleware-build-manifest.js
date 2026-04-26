@@ -1,0 +1,26 @@
+globalThis.__BUILD_MANIFEST = {
+  "pages": {
+    "/_app": []
+  },
+  "devFiles": [],
+  "polyfillFiles": [
+    "static/chunks/0-.f_next_dist_build_polyfills_polyfill-nomodule.js"
+  ],
+  "lowPriorityFiles": [
+    "static/development/_buildManifest.js",
+    "static/development/_ssgManifest.js",
+    "static/development/_clientMiddlewareManifest.js"
+  ],
+  "rootMainFiles": [
+    "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_0-vol84._.js",
+    "static/chunks/0-.f_next_dist_compiled_next-devtools_index_0prcock.js",
+    "static/chunks/0-.f_next_dist_compiled_react-dom_0fwru5s._.js",
+    "static/chunks/0-.f_next_dist_compiled_react-server-dom-turbopack_03.m8r7._.js",
+    "static/chunks/0-.f_next_dist_compiled_0gbywkd._.js",
+    "static/chunks/0-.f_next_dist_client_02a-98a._.js",
+    "static/chunks/0-.f_next_dist_0g3cp0l._.js",
+    "static/chunks/0-.f_@swc_helpers_cjs_0w5wj2v._.js",
+    "static/chunks/OneDrive_Documents_GitHub_Minus-Marco__claude_worktrees_cool-buck-be2924_0rqeker._.js",
+    "static/chunks/0rf1_Documents_GitHub_Minus-Marco__claude_worktrees_cool-buck-be2924_0o8sz-b._.js"
+  ]
+};

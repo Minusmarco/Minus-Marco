@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 30s linear infinite;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+@theme inline {
+  /* Background layers */
+  --color-bg:             #09090E;
+  --color-surface:        #111318;
+  --color-surface-raised: #1A1C24;
+  --color-border:         #23252F;
+
+  /* Text */
+  --color-text-primary:   #EEEEF5;
+  --color-text-secondary: #8A8B9A;
+  --color-text-muted:     #55566A;
+
+  /* Brand blue — #2cabe2 from logo */
+  --color-accent:         #2cabe2;
+  --color-accent-hover:   #3bbef0;
+  --color-accent-dim:     #2cabe215;
+
+  /* Brand gold — #f6b327 from logo */
+  --color-gold:           #f6b327;
+  --color-gold-hover:     #f8c449;
+  --color-gold-dim:       #f6b32715;
+
+  /* Fonts */
+  --font-display: var(--font-barlow);
+  --font-sans:    var(--font-inter);
+}
+
+*,
+*::before,
+*::after {
+  border-color: var(--color-border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
