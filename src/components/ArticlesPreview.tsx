@@ -19,9 +19,9 @@ function formatDate(iso: string) {
 }
 
 const PLACEHOLDERS = [
-  { category: "Opinion",  title: "The Case for Shorter Games in a Busy World",               id: "1" },
-  { category: "News",     title: "How Indie Studios Are Changing the AAA Conversation",       id: "2" },
-  { category: "Feature",  title: "Growing Up Gaming: Minority Stories from the Controller",   id: "3" },
+  { category: "Coming Soon", title: "Articles are on the way", id: "1" },
+  { category: "Coming Soon", title: "Articles are on the way", id: "2" },
+  { category: "Coming Soon", title: "Articles are on the way", id: "3" },
 ];
 
 export default async function ArticlesPreview() {
@@ -31,7 +31,7 @@ export default async function ArticlesPreview() {
 
   return (
     <section className="border-t border-border">
-      <div className="max-w-7xl mx-auto px-6 py-16">
+      <div className="max-w-7xl mx-auto px-6 pt-8 pb-16">
         {/* Header */}
         <div className="flex items-end justify-between mb-10">
           <div>
@@ -98,11 +98,11 @@ export default async function ArticlesPreview() {
                     <span className="font-display text-4xl font-bold text-text-muted opacity-10">MM</span>
                   </div>
                   <div className="flex flex-col gap-2 p-5">
-                    <span className="self-start rounded-sm bg-accent/10 border border-accent/20 px-2 py-0.5 font-display text-xs font-bold uppercase tracking-widest text-accent">
-                      {p.category}
+                    <span className="self-start rounded-sm bg-surface-raised border border-border px-2 py-0.5 font-display text-xs font-bold uppercase tracking-widest text-text-muted">
+                      Coming Soon
                     </span>
-                    <h3 className="font-sans text-base font-semibold text-text-secondary leading-snug">{p.title}</h3>
-                    <span className="mt-2 text-xs text-text-muted">Coming soon</span>
+                    <h3 className="font-sans text-base font-semibold text-text-muted leading-snug">Articles are on the way</h3>
+                    <span className="mt-2 text-xs text-text-muted">Check back soon</span>
                   </div>
                 </div>
               ))}

@@ -21,11 +21,8 @@ export const article = defineType({
     defineField({
       name: "category",
       title: "Category",
-      type: "string",
-      options: {
-        list: ["Review", "News", "Opinion", "Feature", "Video"],
-        layout: "radio",
-      },
+      type: "reference",
+      to: [{ type: "category" }],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -75,7 +72,7 @@ export const article = defineType({
     }),
   ],
   preview: {
-    select: { title: "title", media: "coverImage", subtitle: "category" },
+    select: { title: "title", media: "coverImage", subtitle: "category.title" },
   },
   orderings: [
     {

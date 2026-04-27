@@ -299,7 +299,7 @@ export default function AboutContent() {
           <FadeUp>
             <div className="flex items-center gap-2 mb-10">
               <div className="h-px w-6 bg-accent" />
-              <span className="font-display text-xs font-bold uppercase tracking-widest text-accent">In the Rotation</span>
+              <span className="font-display text-xs font-bold uppercase tracking-widest text-accent">All Time Favorites</span>
             </div>
           </FadeUp>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">

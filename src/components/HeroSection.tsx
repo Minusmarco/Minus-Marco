@@ -3,29 +3,69 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { urlFor } from "@/sanity/lib/image";
 
-const FEATURED = {
-  category: "Feature",
-  title: "The Future of Open-World Gaming Is Here",
-  excerpt: "A deep dive into how the latest generation of titles is redefining what it means to explore a living, breathing world.",
-  href: "/articles/featured",
+type Article = {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  category: string;
+  excerpt?: string;
+  coverImage?: { asset: object; alt?: string };
+  publishedAt?: string;
 };
 
-const SECONDARY = [
-  { category: "News",    title: "What the Xbox Developer Direct Means for the Rest of 2025", href: "/articles/xbox-dev-direct" },
-  { category: "Opinion", title: "Why Single-Player Games Are Making a Comeback",              href: "/articles/single-player-comeback" },
-  { category: "Video",   title: "We Played 4 Hours of the Most Anticipated RPG of the Year", href: "/videos/rpg-preview" },
+type Props = {
+  featured: Article | null;
+  recentArticles: Article[];
+};
+
+const FALLBACK_FEATURED = {
+  category: "Coming Soon",
+  title: "Articles Are on the Way",
+  excerpt: "Marco is hard at work. Check back soon for reviews, news, opinions, and more from Minus Marco.",
+  href: "/articles",
+};
+
+const FALLBACK_RECENT = [
+  { category: "Coming Soon", title: "First article dropping soon", href: "/articles" },
+  { category: "Coming Soon", title: "Stay tuned for more",         href: "/articles" },
+  { category: "Coming Soon", title: "The work is in progress",     href: "/articles" },
 ];
 
 const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } };
 const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } } };
 
-export default function HeroSection() {
+export default function HeroSection({ featured, recentArticles }: Props) {
+  const hasReal = !!featured;
+
+  const hero = featured
+    ? { category: featured.category, title: featured.title, excerpt: featured.excerpt ?? "", href: `/articles/${featured.slug.current}` }
+    : FALLBACK_FEATURED;
+
+  const secondary = recentArticles.length > 0
+    ? recentArticles.map((a) => ({ category: a.category, title: a.title, href: `/articles/${a.slug.current}` }))
+    : FALLBACK_RECENT;
+
   return (
     <section className="relative flex flex-col min-h-screen pt-20">
 
       {/* Main featured story */}
       <div className="relative flex-1 flex items-end min-h-[75vh] overflow-hidden bg-surface">
+
+        {/* Cover image (if article has one) */}
+        {featured?.coverImage && (
+          <div className="absolute inset-0">
+            <Image
+              src={urlFor(featured.coverImage).width(1600).url()}
+              alt={(featured.coverImage as { alt?: string }).alt ?? featured.title}
+              fill
+              className="object-cover opacity-30"
+              priority
+            />
+          </div>
+        )}
+
         <div className="absolute inset-0 bg-gradient-to-br from-[#0D1117] via-[#0E1520] to-bg" />
 
         {/* Accent glows */}
@@ -50,20 +90,22 @@ export default function HeroSection() {
           className="relative z-10 w-full max-w-7xl mx-auto px-6 pb-14"
         >
           <motion.span variants={fadeUp} className="inline-block mb-5 rounded-sm bg-[#f6b327] px-3 py-1 font-display text-xs font-bold uppercase tracking-widest text-bg">
-            {FEATURED.category}
+            {hero.category}
           </motion.span>
 
           <motion.h1 variants={fadeUp} className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.02] tracking-tight text-text-primary max-w-4xl">
-            {FEATURED.title}
+            {hero.title}
           </motion.h1>
 
-          <motion.p variants={fadeUp} className="mt-5 text-base sm:text-lg text-text-secondary max-w-xl leading-relaxed">
-            {FEATURED.excerpt}
-          </motion.p>
+          {hero.excerpt && (
+            <motion.p variants={fadeUp} className="mt-5 text-base sm:text-lg text-text-secondary max-w-xl leading-relaxed">
+              {hero.excerpt}
+            </motion.p>
+          )}
 
           <motion.div variants={fadeUp} className="mt-8 flex items-center gap-4 flex-wrap">
-            <Link href={FEATURED.href} className="inline-flex items-center gap-2 rounded-md bg-accent px-6 py-3 font-sans font-semibold text-bg hover:bg-accent-hover transition-colors duration-200 group">
-              Read More
+            <Link href={hero.href} className="inline-flex items-center gap-2 rounded-md bg-accent px-6 py-3 font-sans font-semibold text-bg hover:bg-accent-hover transition-colors duration-200 group">
+              {hasReal ? "Read Article" : "Read More"}
               <svg className="transition-transform duration-200 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
@@ -100,8 +142,8 @@ export default function HeroSection() {
             animate="show"
             className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-border"
           >
-            {SECONDARY.map((item) => (
-              <motion.div key={item.href} variants={fadeUp}>
+            {secondary.map((item, i) => (
+              <motion.div key={i} variants={fadeUp}>
                 <Link href={item.href} className="group flex flex-col gap-2 px-6 py-6 hover:bg-surface-raised transition-colors duration-200">
                   <span className="font-display text-xs font-bold uppercase tracking-widest text-accent">
                     {item.category}
