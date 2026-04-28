@@ -20,7 +20,7 @@ const FAVORITES = [
   { title: "Metal Gear Solid V",             image: "https://cdn.akamai.steamstatic.com/steam/apps/287700/library_600x900.jpg",  position: "center" },
   { title: "Prey",                           image: "https://cdn.akamai.steamstatic.com/steam/apps/480490/library_600x900.jpg",  position: "center" },
   { title: "ABZU",                           image: "https://cdn.akamai.steamstatic.com/steam/apps/384190/library_600x900.jpg",  position: "center" },
-  { title: "Hollow Knight",                  image: "https://cdn.akamai.steamstatic.com/steam/apps/367520/library_600x900.jpg", position: "center" },
+  { title: "Marvel vs. Capcom: Clash of Heroes", image: "https://cdn.akamai.steamstatic.com/steam/apps/2013630/library_600x900.jpg", position: "center" },
 ];
 
 function FadeUp({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
