@@ -25,7 +25,19 @@
       "Bash(cp \"/c/Users/haebe/Downloads/MM-Logos/Logo/Transparent/Logo Transparent 2.png\" \"/c/Users/haebe/OneDrive/Documents/GitHub/Minus-Marco/public/logo-full-2.png\")",
       "Bash(npx next *)",
       "Read(//c/Windows/Fonts/**)",
-      "Read(//c/Users/haebe/AppData/Local/Microsoft/Windows/Fonts/**)"
+      "Read(//c/Users/haebe/AppData/Local/Microsoft/Windows/Fonts/**)",
+      "Bash(node -e \"const p=require\\('./node_modules/@sanity/image-url/package.json'\\); console.log\\('version',p.version\\); console.log\\('main',p.main,'module',p.module,'exports',JSON.stringify\\(p.exports\\)\\)\")",
+      "Bash(sed -n '1,40p' node_modules/@sanity/image-url/lib/types/index.d.ts)",
+      "Bash(node -e \"const p=require\\('./package.json'\\); const d={...p.dependencies,...p.devDependencies}; console.log\\(Object.keys\\(d\\).filter\\(k=>k==='sanity'||k==='@sanity/cli'\\)\\)\")",
+      "Bash(npx --no-install sanity --version)",
+      "Bash(npx --no-install sanity projects list)",
+      "Bash(NEXT_PUBLIC_SANITY_PROJECT_ID=mckdb24i NEXT_PUBLIC_SANITY_DATASET=production npx --no-install sanity dataset import scripts/seed.ndjson production)",
+      "Bash(python3 -m json.tool)",
+      "Bash(NEXT_PUBLIC_SANITY_PROJECT_ID=mckdb24i npx --no-install sanity cors list)",
+      "Bash(NEXT_PUBLIC_SANITY_PROJECT_ID=mckdb24i npx --no-install sanity cors add http://localhost:3000 --credentials)",
+      "Bash(node -e \"const p=require\\('./node_modules/next-sanity/package.json'\\); console.log\\('version', p.version\\)\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
