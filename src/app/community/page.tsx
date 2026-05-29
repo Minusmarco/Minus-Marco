@@ -146,9 +146,17 @@ export default async function CommunityPage() {
           </p>
           <a
             href="mailto:minusmarcoh@gmail.com"
-            className="mt-8 inline-flex items-center gap-2 rounded-md bg-[#f6b327] px-8 py-3 font-sans font-semibold text-[#0D0E18] hover:bg-[#fac44a] transition-colors duration-200"
+            className="gold-shine-border group relative mt-8 inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-accent px-8 py-3.5 font-sans font-semibold text-white shadow-lg shadow-accent/30 transition-all duration-300 hover:scale-[1.04] hover:bg-accent-hover hover:shadow-xl hover:shadow-gold/40"
           >
-            minusmarcoh@gmail.com
+            <span className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/50 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
+            <svg className="relative shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="m2 7 10 6 10-6" />
+            </svg>
+            <span className="relative">minusmarcoh@gmail.com</span>
+            <svg className="relative shrink-0 transition-transform duration-200 group-hover:translate-x-1" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
           </a>
         </div>
       </section>

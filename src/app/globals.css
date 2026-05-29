@@ -15,6 +15,38 @@
   animation-play-state: paused;
 }
 
+/* Rotating gold shine around a button's edge */
+@property --shine-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes shine-rotate {
+  to { --shine-angle: 360deg; }
+}
+.gold-shine-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--shine-angle),
+    transparent 0deg 230deg,
+    var(--color-gold) 290deg,
+    #fff1c4 320deg,
+    var(--color-gold) 350deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  animation: shine-rotate 4s linear infinite;
+  pointer-events: none;
+}
+
 @theme inline {
   /* Background layers */
   --color-bg:             #F8F9FC;
