@@ -93,7 +93,7 @@ export default function ArticleFilter({
                 <Link
                   key={article._id}
                   href={`/articles/${article.slug.current}`}
-                  className="group flex flex-col bg-surface rounded-lg overflow-hidden border border-border hover:border-accent/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40"
+                  className="group flex flex-col bg-surface rounded-lg overflow-hidden border border-border hover:border-accent/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-shadow/15"
                 >
                   <div className="relative h-48 bg-surface-raised overflow-hidden">
                     {imageUrl ? (
@@ -113,7 +113,7 @@ export default function ArticleFilter({
                       {article.category}
                     </span>
                     {article.featured && (
-                      <span className="absolute top-3 right-3 rounded-sm bg-[#f6b327] px-2 py-0.5 font-display text-xs font-bold uppercase tracking-widest text-bg">
+                      <span className="absolute top-3 right-3 rounded-sm bg-[#f6b327] px-2 py-0.5 font-display text-xs font-bold uppercase tracking-widest text-[#0D0E18]">
                         Featured
                       </span>
                     )}

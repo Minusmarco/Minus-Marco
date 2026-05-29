@@ -30,8 +30,11 @@ export default async function ArticlesPreview() {
   const hasArticles = displayArticles.length > 0;
 
   return (
-    <section className="border-t border-border">
-      <div className="max-w-7xl mx-auto px-6 pt-8 pb-16">
+    <section className="relative border-t border-border overflow-hidden">
+      {/* Soft blue-white gradient backdrop */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-[#F4F8FD] to-[#EAF3FB] pointer-events-none" />
+      <div className="absolute -top-20 right-0 h-[400px] w-[400px] rounded-full bg-accent opacity-[0.08] blur-[120px] pointer-events-none" />
+      <div className="relative max-w-7xl mx-auto px-6 pt-8 pb-16">
         {/* Header */}
         <div className="flex items-end justify-between mb-10">
           <div>
@@ -63,7 +66,7 @@ export default async function ArticlesPreview() {
                   <Link
                     key={article._id}
                     href={`/articles/${article.slug.current}`}
-                    className="group flex flex-col bg-surface rounded-lg overflow-hidden border border-border hover:border-accent/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40"
+                    className="group flex flex-col bg-surface rounded-lg overflow-hidden border border-border hover:border-accent/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-shadow/15"
                   >
                     <div className="relative h-48 bg-surface-raised overflow-hidden">
                       {imageUrl ? (

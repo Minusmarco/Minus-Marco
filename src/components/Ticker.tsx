@@ -17,7 +17,7 @@ export default function Ticker() {
   const repeated = [...ITEMS, ...ITEMS];
 
   return (
-    <div className="w-full overflow-hidden border-y border-border bg-surface py-3 select-none">
+    <div className="w-full overflow-hidden border-y border-border bg-gradient-to-r from-[#E5F1FB] via-[#EEF4FC] to-[#E5F1FB] py-3 select-none">
       <div className="ticker-track">
         {repeated.map((item, i) => (
           <span key={i} className="inline-flex items-center gap-4 px-6 whitespace-nowrap">

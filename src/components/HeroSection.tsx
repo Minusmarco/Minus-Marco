@@ -51,7 +51,7 @@ export default function HeroSection({ featured, recentArticles }: Props) {
     <section className="relative flex flex-col min-h-screen pt-20">
 
       {/* Main featured story */}
-      <div className="relative flex-1 flex items-end min-h-[75vh] overflow-hidden bg-surface">
+      <div className="relative flex-1 flex items-end min-h-[75vh] overflow-hidden bg-gradient-to-b from-[#E5F1FB] via-[#F0F6FD] to-[#F8F9FC]">
 
         {/* Cover image (if article has one) */}
         {featured?.coverImage && (
@@ -60,27 +60,28 @@ export default function HeroSection({ featured, recentArticles }: Props) {
               src={urlFor(featured.coverImage).width(1600).url()}
               alt={(featured.coverImage as { alt?: string }).alt ?? featured.title}
               fill
-              className="object-cover opacity-30"
+              className="object-cover"
               priority
             />
+            {/* Light wash so dark text stays readable over the image */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#F8F9FC] via-[#F8F9FC]/85 to-[#F8F9FC]/55" />
           </div>
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0D1117] via-[#0E1520] to-bg" />
-
-        {/* Accent glows */}
-        <div className="absolute -top-32 -right-32 h-[600px] w-[600px] rounded-full bg-accent opacity-[0.06] blur-[130px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 h-[300px] w-[400px] rounded-full bg-accent opacity-[0.03] blur-[100px] pointer-events-none" />
+        {/* Soft accent glows */}
+        <div className="absolute -top-32 -right-24 h-[620px] w-[620px] rounded-full bg-accent opacity-[0.16] blur-[140px] pointer-events-none" />
+        <div className="absolute -bottom-20 -left-24 h-[420px] w-[520px] rounded-full bg-[#7cc8ec] opacity-[0.18] blur-[130px] pointer-events-none" />
+        <div className="absolute top-1/3 left-1/4 h-[300px] w-[300px] rounded-full bg-[#f6b327] opacity-[0.06] blur-[120px] pointer-events-none" />
 
         {/* Grid texture */}
-        <div className="absolute inset-0 opacity-[0.025]" style={{
-          backgroundImage: "linear-gradient(var(--color-text-primary) 1px, transparent 1px), linear-gradient(90deg, var(--color-text-primary) 1px, transparent 1px)",
+        <div className="absolute inset-0 opacity-[0.04]" style={{
+          backgroundImage: "linear-gradient(var(--color-accent) 1px, transparent 1px), linear-gradient(90deg, var(--color-accent) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
         }} />
 
         {/* Logo watermark */}
-        <div className="absolute top-8 right-8 opacity-[0.04] pointer-events-none select-none hidden lg:block">
-          <Image src="/logo-full.png" alt="" width={320} height={120} className="w-80 h-auto object-contain" />
+        <div className="absolute top-8 right-8 opacity-[0.09] pointer-events-none select-none hidden lg:block">
+          <Image src="/logo-full-2.png" alt="" width={320} height={120} className="w-80 h-auto object-contain" />
         </div>
 
         <motion.div
@@ -89,7 +90,7 @@ export default function HeroSection({ featured, recentArticles }: Props) {
           animate="show"
           className="relative z-10 w-full max-w-7xl mx-auto px-6 pb-14"
         >
-          <motion.span variants={fadeUp} className="inline-block mb-5 rounded-sm bg-[#f6b327] px-3 py-1 font-display text-xs font-bold uppercase tracking-widest text-bg">
+          <motion.span variants={fadeUp} className="inline-block mb-5 rounded-sm bg-[#f6b327] px-3 py-1 font-display text-xs font-bold uppercase tracking-widest text-[#0D0E18]">
             {hero.category}
           </motion.span>
 
@@ -134,7 +135,7 @@ export default function HeroSection({ featured, recentArticles }: Props) {
       </div>
 
       {/* Secondary featured cards */}
-      <div className="bg-surface border-t border-border">
+      <div className="bg-gradient-to-b from-white to-[#F8F9FC] border-t border-border">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             variants={stagger}

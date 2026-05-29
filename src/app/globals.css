@@ -17,15 +17,15 @@
 
 @theme inline {
   /* Background layers */
-  --color-bg:             #09090E;
-  --color-surface:        #0E1018;
-  --color-surface-raised: #181B26;
-  --color-border:         #1E2130;
+  --color-bg:             #F8F9FC;
+  --color-surface:        #FFFFFF;
+  --color-surface-raised: #EEF0F8;
+  --color-border:         #DDE0EE;
 
   /* Text */
-  --color-text-primary:   #EEEEF5;
-  --color-text-secondary: #8A8B9A;
-  --color-text-muted:     #55566A;
+  --color-text-primary:   #0D0E18;
+  --color-text-secondary: #4E5068;
+  --color-text-muted:     #9094AD;
 
   /* Brand blue — #2cabe2 from brand kit */
   --color-accent:         #2cabe2;
@@ -37,9 +37,12 @@
   --color-gold-hover:     #fac44a;
   --color-gold-dim:       #f6b32718;
 
+  /* Soft navy shadow — replaces harsh black on light theme */
+  --color-shadow:         #2a4a73;
+
   /* Fonts */
-  --font-display: var(--font-nunito);
-  --font-sans:    var(--font-exo2);
+  --font-display: var(--font-barlow);
+  --font-sans:    var(--font-inter);
 }
 
 *,
@@ -54,7 +57,26 @@ html {
 
 body {
   background-color: var(--color-bg);
+  /* Ambient soft-blue depth so flat white never "hits like a truck" */
+  background-image:
+    radial-gradient(820px circle at 12% -8%,  #DCEBFA 0%, transparent 46%),
+    radial-gradient(760px circle at 92% 4%,   #E6EEFD 0%, transparent 42%),
+    radial-gradient(1100px circle at 50% 118%, #DEE9F8 0%, transparent 48%);
+  background-attachment: fixed;
   color: var(--color-text-primary);
-  font-family: var(--font-exo2), system-ui, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Fine film grain across the whole viewport — smooths banding and
+   takes the sterile edge off large flat surfaces. Sits above content
+   but is non-interactive and barely perceptible. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }

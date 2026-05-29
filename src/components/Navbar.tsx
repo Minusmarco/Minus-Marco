@@ -37,7 +37,7 @@ export default function Navbar() {
         className={[
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           scrolled || menuOpen
-            ? "bg-bg/90 backdrop-blur-md border-b border-border shadow-lg shadow-black/30"
+            ? "bg-bg/80 backdrop-blur-md border-b border-border shadow-lg shadow-shadow/10"
             : "bg-transparent",
         ].join(" ")}
       >

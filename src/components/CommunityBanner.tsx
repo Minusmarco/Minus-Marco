@@ -5,8 +5,9 @@ export default function CommunityBanner() {
   return (
     <section className="border-t border-border relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-bg to-bg" />
-      <div className="absolute -top-24 -left-24 h-[400px] w-[400px] rounded-full bg-accent opacity-[0.07] blur-[100px] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-br from-accent/15 via-[#EDF5FC] to-white" />
+      <div className="absolute -top-24 -left-24 h-[400px] w-[400px] rounded-full bg-accent opacity-[0.14] blur-[100px] pointer-events-none" />
+      <div className="absolute -bottom-20 right-1/4 h-[360px] w-[360px] rounded-full bg-[#f6b327] opacity-[0.07] blur-[120px] pointer-events-none" />
       {/* Logo watermark */}
       <div className="absolute bottom-0 right-0 opacity-[0.04] pointer-events-none select-none translate-x-8 translate-y-4">
         <Image src="/logo-mark.png" alt="" width={220} height={220} className="w-56 h-56 object-contain" />

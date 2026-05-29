@@ -5,13 +5,44 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
 
+const SubstackIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+    <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/>
+  </svg>
+);
+const YouTubeIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+  </svg>
+);
+const InstagramIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+  </svg>
+);
+const XIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+);
+const TikTokIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.27 8.27 0 0 0 4.84 1.55V6.79a4.85 4.85 0 0 1-1.07-.1z"/>
+  </svg>
+);
+const LinkedInIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </svg>
+);
+
 const PLATFORMS = [
-  { label: "Substack",  desc: "Essays, reviews & opinion",     href: "https://substack.com/@minusmarco",   icon: "✦" },
-  { label: "YouTube",   desc: "Video deep-dives & previews",   href: "https://youtube.com/@minusmarco",    icon: "▶" },
-  { label: "Instagram", desc: "Event coverage & behind scenes",href: "https://instagram.com/minusmarco",   icon: "◈" },
-  { label: "X",         desc: "Hot takes & breaking news",     href: "https://x.com/minusmarco",           icon: "✕" },
-  { label: "TikTok",    desc: "Short-form gaming content",     href: "https://tiktok.com/@minusmarco",     icon: "◎" },
-  { label: "LinkedIn",  desc: "Professional work & portfolio", href: "https://linkedin.com/in/minusmarco", icon: "▣" },
+  { label: "Substack",  desc: "Essays, reviews & opinion",      href: "https://substack.com/@itsminusmarco",                  Icon: SubstackIcon },
+  { label: "YouTube",   desc: "Video deep-dives & previews",    href: "https://www.youtube.com/@itsminusmarco",               Icon: YouTubeIcon },
+  { label: "Instagram", desc: "Event coverage & behind scenes", href: "https://www.instagram.com/itsminusmarco",              Icon: InstagramIcon },
+  { label: "X",         desc: "Hot takes & breaking news",      href: "https://x.com/itsminusmarco",                          Icon: XIcon },
+  { label: "TikTok",    desc: "Short-form gaming content",      href: "https://www.tiktok.com/@itsminusmarco",                Icon: TikTokIcon },
+  { label: "LinkedIn",  desc: "Professional work & portfolio",  href: "https://www.linkedin.com/in/marco-hernandez-253908281/", Icon: LinkedInIcon },
 ];
 
 const FAVORITES = [
@@ -20,7 +51,7 @@ const FAVORITES = [
   { title: "Metal Gear Solid V",             image: "https://cdn.akamai.steamstatic.com/steam/apps/287700/library_600x900.jpg",  position: "center" },
   { title: "Prey",                           image: "https://cdn.akamai.steamstatic.com/steam/apps/480490/library_600x900.jpg",  position: "center" },
   { title: "ABZU",                           image: "https://cdn.akamai.steamstatic.com/steam/apps/384190/library_600x900.jpg",  position: "center" },
-  { title: "Marvel vs. Capcom: Clash of Heroes", image: "https://cdn.akamai.steamstatic.com/steam/apps/2013630/library_600x900.jpg", position: "center" },
+  { title: "Marvel vs. Capcom Fighting Collection", image: "https://cdn.akamai.steamstatic.com/steam/apps/2634890/library_600x900.jpg", position: "center" },
 ];
 
 function FadeUp({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
@@ -42,7 +73,7 @@ function FadeUp({ children, delay = 0, className = "" }: { children: React.React
 function GameCard({ game }: { game: { title: string; image: string; position: string } }) {
   const [errored, setErrored] = useState(false);
   return (
-    <div className="group relative rounded-lg overflow-hidden border border-border bg-bg aspect-[2/3] cursor-default hover:border-accent/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/50">
+    <div className="group relative rounded-lg overflow-hidden border border-border bg-bg aspect-[2/3] cursor-default hover:border-accent/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-shadow/20">
       {errored ? (
         <div className="absolute inset-0 bg-gradient-to-br from-surface-raised to-bg flex items-center justify-center p-4">
           <p className="font-display text-xs font-bold text-text-muted text-center leading-tight">{game.title}</p>
@@ -76,7 +107,8 @@ export default function AboutContent() {
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section className="relative overflow-hidden border-b border-border">
         {/* Background glow */}
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 h-[600px] w-[800px] rounded-full bg-accent opacity-[0.05] blur-[140px] pointer-events-none" />
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 h-[600px] w-[800px] rounded-full bg-accent opacity-[0.16] blur-[140px] pointer-events-none" />
+        <div className="absolute top-1/4 -right-20 h-[420px] w-[420px] rounded-full bg-[#f6b327] opacity-[0.07] blur-[130px] pointer-events-none" />
 
         <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
@@ -123,7 +155,7 @@ export default function AboutContent() {
                 Read the Work
               </Link>
               <a
-                href="mailto:marco.hernandez5692@gmail.com"
+                href="mailto:minusmarcoh@gmail.com"
                 className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-2.5 font-sans font-medium text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors duration-200"
               >
                 Get in Touch
@@ -138,7 +170,7 @@ export default function AboutContent() {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="relative hidden lg:flex items-center justify-center"
           >
-            <div className="relative w-full max-w-sm aspect-[3/4] rounded-xl overflow-hidden bg-surface border border-border shadow-2xl shadow-black/60">
+            <div className="relative w-full max-w-sm aspect-[3/4] rounded-xl overflow-hidden bg-surface border border-border shadow-2xl shadow-shadow/25">
               <Image
                 src="/marco.avif"
                 fill
@@ -154,7 +186,7 @@ export default function AboutContent() {
             </div>
             {/* Floating gold tag */}
             <div className="absolute -bottom-4 -right-4 rounded-lg bg-[#f6b327] px-4 py-2 shadow-xl shadow-[#f6b327]/20">
-              <p className="font-display text-xs font-bold uppercase tracking-widest text-bg">Est. 2026</p>
+              <p className="font-display text-xs font-bold uppercase tracking-widest text-[#0D0E18]">Est. 2026</p>
             </div>
           </motion.div>
         </div>
@@ -274,8 +306,8 @@ export default function AboutContent() {
                   rel="noopener noreferrer"
                   className="group flex items-start gap-4 rounded-lg border border-border bg-surface p-5 hover:border-accent/50 hover:bg-surface-raised transition-all duration-200"
                 >
-                  <span className="mt-0.5 font-display text-xl text-accent group-hover:scale-110 transition-transform duration-200 select-none">
-                    {p.icon}
+                  <span className="mt-0.5 text-accent group-hover:scale-110 transition-transform duration-200 flex-shrink-0">
+                    <p.Icon />
                   </span>
                   <div>
                     <p className="font-display font-bold text-text-primary group-hover:text-accent transition-colors duration-200">
@@ -322,10 +354,10 @@ export default function AboutContent() {
             Pitches, collabs, press access, or just want to say hello. Marco's inbox is open.
           </p>
           <a
-            href="mailto:marco.hernandez5692@gmail.com"
-            className="mt-8 inline-flex items-center gap-2 rounded-md bg-[#f6b327] px-8 py-3 font-sans font-semibold text-bg hover:bg-[#fac44a] transition-colors duration-200"
+            href="mailto:minusmarcoh@gmail.com"
+            className="mt-8 inline-flex items-center gap-2 rounded-md bg-[#f6b327] px-8 py-3 font-sans font-semibold text-[#0D0E18] hover:bg-[#fac44a] transition-colors duration-200"
           >
-            marco.hernandez5692@gmail.com
+            minusmarcoh@gmail.com
           </a>
         </FadeUp>
       </section>

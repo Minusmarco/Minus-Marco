@@ -17,12 +17,12 @@ export const metadata = { title: "Community" };
 export const revalidate = 60;
 
 const PLATFORMS = [
-  { label: "Substack",   desc: "Essays & long reads",         href: "https://substack.com/@minusmarco",    color: "#FF6719" },
-  { label: "YouTube",    desc: "Video deep-dives",            href: "https://youtube.com/@minusmarco",     color: "#FF0000" },
-  { label: "Instagram",  desc: "Behind the scenes",          href: "https://instagram.com/minusmarco",    color: "#E1306C" },
-  { label: "X",          desc: "Hot takes daily",            href: "https://x.com/minusmarco",            color: "#EEEEF5" },
-  { label: "TikTok",     desc: "Short-form gaming content",  href: "https://tiktok.com/@minusmarco",      color: "#69C9D0" },
-  { label: "LinkedIn",   desc: "Professional work",          href: "https://linkedin.com/in/minusmarco",  color: "#0A66C2" },
+  { label: "Substack",   desc: "Essays & long reads",         href: "https://substack.com/@itsminusmarco",                  color: "#FF6719" },
+  { label: "YouTube",    desc: "Video deep-dives",            href: "https://www.youtube.com/@itsminusmarco",               color: "#FF0000" },
+  { label: "Instagram",  desc: "Behind the scenes",          href: "https://www.instagram.com/itsminusmarco",              color: "#E1306C" },
+  { label: "X",          desc: "Hot takes daily",            href: "https://x.com/itsminusmarco",                          color: "#EEEEF5" },
+  { label: "TikTok",     desc: "Short-form gaming content",  href: "https://www.tiktok.com/@itsminusmarco",                color: "#69C9D0" },
+  { label: "LinkedIn",   desc: "Professional work",          href: "https://www.linkedin.com/in/marco-hernandez-253908281/", color: "#0A66C2" },
 ];
 
 export default async function CommunityPage() {
@@ -61,7 +61,7 @@ export default async function CommunityPage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href="mailto:marco.hernandez5692@gmail.com"
+              href="mailto:minusmarcoh@gmail.com"
               className="inline-flex items-center gap-2 rounded-md bg-accent px-6 py-3 font-sans font-semibold text-sm text-bg hover:bg-accent-hover transition-colors duration-200"
             >
               Get in Touch
@@ -114,7 +114,7 @@ export default async function CommunityPage() {
                 href={p.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col gap-2 rounded-xl border border-border bg-surface p-5 hover:border-accent/50 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40 transition-all duration-300"
+                className="group flex flex-col gap-2 rounded-xl border border-border bg-surface p-5 hover:border-accent/50 hover:-translate-y-1 hover:shadow-xl hover:shadow-shadow/15 transition-all duration-300"
               >
                 <div
                   className="h-2 w-2 rounded-full mb-1 transition-all duration-300 group-hover:scale-150"
@@ -145,10 +145,10 @@ export default async function CommunityPage() {
             Pitches, collabs, press access, or just want to say hello.
           </p>
           <a
-            href="mailto:marco.hernandez5692@gmail.com"
-            className="mt-8 inline-flex items-center gap-2 rounded-md bg-[#f6b327] px-8 py-3 font-sans font-semibold text-bg hover:bg-[#fac44a] transition-colors duration-200"
+            href="mailto:minusmarcoh@gmail.com"
+            className="mt-8 inline-flex items-center gap-2 rounded-md bg-[#f6b327] px-8 py-3 font-sans font-semibold text-[#0D0E18] hover:bg-[#fac44a] transition-colors duration-200"
           >
-            marco.hernandez5692@gmail.com
+            minusmarcoh@gmail.com
           </a>
         </div>
       </section>

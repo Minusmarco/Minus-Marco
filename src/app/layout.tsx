@@ -1,19 +1,18 @@
 import type { Metadata } from "next";
-import { Nunito, Exo_2 } from "next/font/google";
+import { Inter, Barlow_Condensed } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
-const nunito = Nunito({
-  variable: "--font-nunito",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800", "900"],
   display: "swap",
 });
 
-const exo2 = Exo_2({
-  variable: "--font-exo2",
+const barlow = Barlow_Condensed({
+  variable: "--font-barlow",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700", "800"],
   display: "swap",
 });
 
@@ -28,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${nunito.variable} ${exo2.variable} h-full`}>
+    <html lang="en" className={`${inter.variable} ${barlow.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-bg text-text-primary">
         <Navbar />
         {children}
