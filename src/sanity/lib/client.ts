@@ -1,14 +1,23 @@
 import { createClient } from "next-sanity";
-
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production";
+import { apiVersion, dataset, projectId, useCdn } from "../env";
 
 export const client = projectId
-  ? createClient({ projectId, dataset, apiVersion: "2024-01-01", useCdn: true })
+  ? createClient({
+      projectId,
+      dataset,
+      apiVersion,
+      useCdn,
+      // Only ever return published documents to the public site.
+      perspective: "published",
+    })
   : null;
 
-export async function sanityFetch<T>(query: string, params?: Record<string, unknown>): Promise<T> {
+export async function sanityFetch<T>(
+  query: string,
+  params?: Record<string, unknown>,
+): Promise<T> {
+  // When the project isn't configured (e.g. local dev without env), fail soft
+  // with an empty array so pages render their "coming soon" fallbacks.
   if (!client) return [] as unknown as T;
-  if (params) return client.fetch<T>(query, params);
-  return client.fetch<T>(query);
+  return client.fetch<T>(query, params ?? {});
 }
