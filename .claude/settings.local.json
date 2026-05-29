@@ -37,7 +37,8 @@
       "Bash(NEXT_PUBLIC_SANITY_PROJECT_ID=mckdb24i npx --no-install sanity cors add http://localhost:3000 --credentials)",
       "Bash(node -e \"const p=require\\('./node_modules/next-sanity/package.json'\\); console.log\\('version', p.version\\)\")",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(npx sanity *)"
     ]
   }
 }
