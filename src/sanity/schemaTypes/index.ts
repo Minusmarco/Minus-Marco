@@ -5,5 +5,6 @@ import { poll } from "./poll";
 import { debate } from "./debate";
 import { communityQuote } from "./communityQuote";
 import { shoutout } from "./shoutout";
+import { video } from "./video";
 
-export const schemaTypes = [article, category, currentlyPlaying, poll, debate, communityQuote, shoutout];
+export const schemaTypes = [article, category, currentlyPlaying, poll, debate, communityQuote, shoutout, video];

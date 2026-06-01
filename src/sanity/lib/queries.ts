@@ -65,6 +65,12 @@ export const allShoutoutsQuery = groq`
   }
 `;
 
+export const allVideosQuery = groq`
+  *[_type == "video"] | order(featured desc, coalesce(publishedAt, _createdAt) desc) {
+    _id, title, youtubeUrl, description, publishedAt, featured
+  }
+`;
+
 export const articleBySlugQuery = groq`
   *[_type == "article" && slug.current == $slug][0] {
     _id,
