@@ -10,6 +10,22 @@ export const debate = defineType({
     defineField({ name: "optionB", title: "Side B", type: "string", validation: (Rule) => Rule.required() }),
     defineField({ name: "context", title: "Context", type: "text", rows: 2, description: "Optional background info for the debate." }),
     defineField({ name: "active", title: "Active Debate", type: "boolean", initialValue: true }),
+    defineField({
+      name: "votesA",
+      title: "Votes — Side A",
+      type: "number",
+      initialValue: 0,
+      readOnly: true,
+      description: "Tallied automatically as visitors vote. No need to edit.",
+    }),
+    defineField({
+      name: "votesB",
+      title: "Votes — Side B",
+      type: "number",
+      initialValue: 0,
+      readOnly: true,
+      description: "Tallied automatically as visitors vote. No need to edit.",
+    }),
   ],
   preview: {
     select: { title: "question", subtitle: "optionA" },

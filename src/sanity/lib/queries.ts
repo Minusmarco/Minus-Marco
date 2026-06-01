@@ -46,7 +46,9 @@ export const activePollQuery = groq`
 
 export const activeDebateQuery = groq`
   *[_type == "debate" && active == true] | order(_updatedAt desc)[0] {
-    _id, question, optionA, optionB, context
+    _id, question, optionA, optionB, context,
+    "votesA": coalesce(votesA, 0),
+    "votesB": coalesce(votesB, 0)
   }
 `;
 

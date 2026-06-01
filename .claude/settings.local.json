@@ -49,7 +49,9 @@
       "Bash(cat)",
       "Bash(node /tmp/genfav.mjs)",
       "Bash(mv -f src/app/icon.png.tmp src/app/icon.png)",
-      "Bash(node genfav.mjs)"
+      "Bash(node genfav.mjs)",
+      "Bash(node -e \"try{require.resolve\\('server-only'\\);console.log\\('server-only: yes'\\)}catch{console.log\\('server-only: no'\\)}\")",
+      "Bash(npx tsc *)"
     ]
   }
 }
