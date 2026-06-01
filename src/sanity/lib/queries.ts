@@ -40,7 +40,8 @@ export const currentlyPlayingQuery = groq`
 
 export const activePollQuery = groq`
   *[_type == "poll" && active == true] | order(_updatedAt desc)[0] {
-    _id, question, options
+    _id, question, options,
+    "votes": coalesce(votes, [])
   }
 `;
 
