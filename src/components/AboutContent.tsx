@@ -110,7 +110,7 @@ export default function AboutContent() {
         <div className="absolute -top-40 left-1/2 -translate-x-1/2 h-[600px] w-[800px] rounded-full bg-accent opacity-[0.16] blur-[140px] pointer-events-none" />
         <div className="absolute top-1/4 -right-20 h-[420px] w-[420px] rounded-full bg-[#f6b327] opacity-[0.07] blur-[130px] pointer-events-none" />
 
-        <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-24 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div className="relative max-w-7xl mx-auto px-6 pt-12 pb-16 lg:pt-20 lg:pb-24 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div>
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -168,9 +168,9 @@ export default function AboutContent() {
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="relative hidden lg:flex items-center justify-center"
+            className="relative flex items-center justify-center"
           >
-            <div className="relative w-full max-w-sm aspect-[3/4] rounded-xl overflow-hidden bg-surface border border-border shadow-2xl shadow-shadow/25">
+            <div className="relative w-full max-w-xs sm:max-w-sm mx-auto aspect-[3/4] rounded-xl overflow-hidden bg-surface border border-border shadow-2xl shadow-shadow/25">
               <Image
                 src="/marco.avif"
                 fill

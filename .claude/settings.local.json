@@ -38,7 +38,11 @@
       "Bash(node -e \"const p=require\\('./node_modules/next-sanity/package.json'\\); console.log\\('version', p.version\\)\")",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(npx sanity *)"
+      "Bash(npx sanity *)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(taskkill /PID 27316 /F)",
+      "PowerShell(Stop-Process -Id 27316 -Force)",
+      "PowerShell(\"killed\")"
     ]
   }
 }
