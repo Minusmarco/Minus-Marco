@@ -42,7 +42,14 @@
       "mcp__Claude_Preview__preview_start",
       "Bash(taskkill /PID 27316 /F)",
       "PowerShell(Stop-Process -Id 27316 -Force)",
-      "PowerShell(\"killed\")"
+      "PowerShell(\"killed\")",
+      "Bash(node -e \"try{require.resolve\\('sharp'\\);console.log\\('sharp: yes'\\)}catch{console.log\\('sharp: no'\\)}\")",
+      "Bash(node -e \"try{require.resolve\\('png-to-ico'\\);console.log\\('png-to-ico: yes'\\)}catch{console.log\\('png-to-ico: no'\\)}\")",
+      "Bash(magick -version)",
+      "Bash(cat)",
+      "Bash(node /tmp/genfav.mjs)",
+      "Bash(mv -f src/app/icon.png.tmp src/app/icon.png)",
+      "Bash(node genfav.mjs)"
     ]
   }
 }
