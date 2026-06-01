@@ -79,10 +79,13 @@ export default function HeroSection({ featured, recentArticles }: Props) {
           backgroundSize: "60px 60px",
         }} />
 
-        {/* Logo watermark */}
-        <div className="absolute top-8 right-8 opacity-[0.09] pointer-events-none select-none hidden lg:block">
-          <Image src="/logo-full-2.png" alt="" width={320} height={120} className="w-80 h-auto object-contain" />
-        </div>
+        {/* Logo watermark — only on the empty "coming soon" state, so it
+            doesn't fight with a real article's cover image */}
+        {!featured?.coverImage && (
+          <div className="absolute top-8 right-8 opacity-[0.09] pointer-events-none select-none hidden lg:block">
+            <Image src="/logo-full-2.png" alt="" width={320} height={120} className="w-80 h-auto object-contain" />
+          </div>
+        )}
 
         <motion.div
           variants={stagger}
