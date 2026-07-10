@@ -2,164 +2,251 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { urlFor } from "@/sanity/lib/image";
 
-type Article = {
-  _id: string;
+export type FeatureItem = {
+  kind: "article" | "video";
+  label: string;
   title: string;
-  slug: { current: string };
-  category: string;
-  excerpt?: string;
-  coverImage?: { asset: object; alt?: string };
-  publishedAt?: string;
+  blurb: string;
+  href: string;
+  image: string | null;
+  cta: string;
 };
 
 type Props = {
-  featured: Article | null;
-  recentArticles: Article[];
+  items: FeatureItem[];
 };
 
-const FALLBACK_FEATURED = {
-  category: "Coming Soon",
-  title: "Articles Are on the Way",
-  excerpt: "Marco is hard at work. Check back soon for reviews, news, opinions, and more from Minus Marco.",
-  href: "/articles",
-};
-
-const FALLBACK_RECENT = [
-  { category: "Coming Soon", title: "First article dropping soon", href: "/articles" },
-  { category: "Coming Soon", title: "Stay tuned for more",         href: "/articles" },
-  { category: "Coming Soon", title: "The work is in progress",     href: "/articles" },
+const MENU = [
+  { label: "Articles", sub: "Reviews, essays & opinion", href: "/articles" },
+  { label: "Videos", sub: "Deep-dives & previews", href: "/videos" },
+  { label: "Community", sub: "Polls, debates & shoutouts", href: "/community" },
+  { label: "About", sub: "Player one — Marco", href: "/about" },
 ];
 
-const fadeUp = { hidden: { opacity: 0, y: 24 }, show: { opacity: 1, y: 0 } };
-const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } } };
+const fadeUp = { hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0 } };
+const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } } };
 
-export default function HeroSection({ featured, recentArticles }: Props) {
-  const hasReal = !!featured;
+const PLACEHOLDER: FeatureItem = {
+  kind: "article",
+  label: "Coming Soon",
+  title: "New game — first drop loading",
+  blurb: "Marco is loading up the first story. Hit Articles to look around in the meantime.",
+  href: "/articles",
+  image: null,
+  cta: "Explore",
+};
 
-  const hero = featured
-    ? { category: featured.category, title: featured.title, excerpt: featured.excerpt ?? "", href: `/articles/${featured.slug.current}` }
-    : FALLBACK_FEATURED;
+function FeatureReel({ items }: { items: FeatureItem[] }) {
+  const reel = items.length > 0 ? items : [PLACEHOLDER];
+  const [idx, setIdx] = useState(0);
+  const [paused, setPaused] = useState(false);
 
-  const secondary = recentArticles.length > 0
-    ? recentArticles.map((a) => ({ category: a.category, title: a.title, href: `/articles/${a.slug.current}` }))
-    : FALLBACK_RECENT;
+  // Auto-advance through the feature reel; pauses while hovered. Including
+  // `idx` in the deps restarts the countdown after a manual move.
+  useEffect(() => {
+    if (paused || reel.length <= 1) return;
+    const t = setInterval(() => setIdx((i) => (i + 1) % reel.length), 4000);
+    return () => clearInterval(t);
+  }, [paused, reel.length, idx]);
+
+  // Keep the index valid if the list length changes.
+  useEffect(() => { if (idx >= reel.length) setIdx(0); }, [idx, reel.length]);
+
+  const next = () => setIdx((i) => (i + 1) % reel.length);
+  const prev = () => setIdx((i) => (i - 1 + reel.length) % reel.length);
+
+  const item = reel[idx];
+  const isVideo = item.kind === "video";
 
   return (
-    <section className="relative flex flex-col min-h-screen pt-20">
-
-      {/* Main featured story */}
-      <div className="relative flex-1 flex items-end min-h-[75vh] overflow-hidden bg-gradient-to-b from-[#E5F1FB] via-[#F0F6FD] to-[#F8F9FC]">
-
-        {/* Cover image (if article has one) */}
-        {featured?.coverImage && (
-          <div className="absolute inset-0">
-            <Image
-              src={urlFor(featured.coverImage).width(1600).url()}
-              alt={(featured.coverImage as { alt?: string }).alt ?? featured.title}
-              fill
-              className="object-cover"
-              priority
-            />
-            {/* Light wash so dark text stays readable over the image */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#F8F9FC] via-[#F8F9FC]/85 to-[#F8F9FC]/55" />
-          </div>
-        )}
-
-        {/* Soft accent glows */}
-        <div className="absolute -top-32 -right-24 h-[620px] w-[620px] rounded-full bg-accent opacity-[0.16] blur-[140px] pointer-events-none" />
-        <div className="absolute -bottom-20 -left-24 h-[420px] w-[520px] rounded-full bg-[#7cc8ec] opacity-[0.18] blur-[130px] pointer-events-none" />
-        <div className="absolute top-1/3 left-1/4 h-[300px] w-[300px] rounded-full bg-[#f6b327] opacity-[0.06] blur-[120px] pointer-events-none" />
-
-        {/* Grid texture */}
-        <div className="absolute inset-0 opacity-[0.04]" style={{
-          backgroundImage: "linear-gradient(var(--color-accent) 1px, transparent 1px), linear-gradient(90deg, var(--color-accent) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
-        }} />
-
-        {/* Logo watermark — only on the empty "coming soon" state, so it
-            doesn't fight with a real article's cover image */}
-        {!featured?.coverImage && (
-          <div className="absolute top-8 right-8 opacity-[0.09] pointer-events-none select-none hidden lg:block">
-            <Image src="/logo-full-2.png" alt="" width={320} height={120} className="w-80 h-auto object-contain" />
-          </div>
-        )}
-
-        <motion.div
-          variants={stagger}
-          initial="hidden"
-          animate="show"
-          className="relative z-10 w-full max-w-7xl mx-auto px-6 pb-14"
-        >
-          <motion.span variants={fadeUp} className="inline-block mb-5 rounded-sm bg-[#f6b327] px-3 py-1 font-display text-xs font-bold uppercase tracking-widest text-[#0D0E18]">
-            {hero.category}
-          </motion.span>
-
-          <motion.h1 variants={fadeUp} className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.02] tracking-tight text-text-primary max-w-4xl">
-            {hero.title}
-          </motion.h1>
-
-          {hero.excerpt && (
-            <motion.p variants={fadeUp} className="mt-5 text-base sm:text-lg text-text-secondary max-w-xl leading-relaxed">
-              {hero.excerpt}
-            </motion.p>
-          )}
-
-          <motion.div variants={fadeUp} className="mt-8 flex items-center gap-4 flex-wrap">
-            <Link href={hero.href} className="inline-flex items-center gap-2 rounded-md bg-accent px-6 py-3 font-sans font-semibold text-bg hover:bg-accent-hover transition-colors duration-200 group">
-              {hasReal ? "Read Article" : "Read More"}
-              <svg className="transition-transform duration-200 group-hover:translate-x-1" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
-            <span className="text-text-muted text-sm font-sans">by Minus Marco</span>
-          </motion.div>
-        </motion.div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
-          className="absolute bottom-6 right-6 flex flex-col items-center gap-2"
-        >
-          <span className="font-display text-xs uppercase tracking-widest text-text-muted">Scroll</span>
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-text-muted">
-              <path d="M12 5v14M5 12l7 7 7-7" />
-            </svg>
-          </motion.div>
-        </motion.div>
+    <div
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      className="rounded-2xl border border-border bg-surface/90 backdrop-blur-sm p-5 sm:p-6 shadow-[0_20px_50px_-20px_rgba(42,74,115,0.35)]"
+    >
+      <div className="flex items-center justify-between mb-3">
+        <span className="font-display text-xs font-bold uppercase tracking-[0.16em] text-[#f6b327]">▶ Continue</span>
+        <span className="font-display text-[11px] font-bold uppercase tracking-[0.14em] text-text-muted">
+          Featured Reel
+        </span>
       </div>
 
-      {/* Secondary featured cards */}
-      <div className="bg-gradient-to-b from-white to-[#F8F9FC] border-t border-border">
-        <div className="max-w-7xl mx-auto px-6">
-          <motion.div
-            variants={stagger}
-            initial="hidden"
-            animate="show"
-            className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-border"
-          >
-            {secondary.map((item, i) => (
-              <motion.div key={i} variants={fadeUp}>
-                <Link href={item.href} className="group flex flex-col gap-2 px-6 py-6 hover:bg-surface-raised transition-colors duration-200">
-                  <span className="font-display text-xs font-bold uppercase tracking-widest text-accent">
-                    {item.category}
-                  </span>
-                  <h3 className="font-sans text-sm font-semibold text-text-primary leading-snug group-hover:text-accent transition-colors duration-200 line-clamp-2">
-                    {item.title}
-                  </h3>
-                </Link>
-              </motion.div>
+      <motion.div
+        key={idx}
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+      >
+          <Link href={item.href} className="group block">
+            <div className="relative aspect-video rounded-lg overflow-hidden bg-surface-raised">
+              {item.image ? (
+                /* eslint-disable-next-line @next/next/no-img-element */
+                <img src={item.image} alt={item.title} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              ) : (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Image src="/logo-mark.png" alt="" width={56} height={56} className="w-14 h-14 object-contain opacity-15" />
+                </div>
+              )}
+              <span className={`absolute top-3 left-3 rounded-sm px-2 py-0.5 font-display text-xs font-bold uppercase tracking-widest ${isVideo ? "bg-[#f6b327] text-[#0D0E18]" : "bg-accent text-bg"}`}>
+                {isVideo ? "▶ Video" : item.label}
+              </span>
+            </div>
+            <h2 className="mt-4 font-display text-xl sm:text-2xl font-bold text-text-primary leading-snug group-hover:text-accent transition-colors duration-200 line-clamp-2">
+              {item.title}
+            </h2>
+            {item.blurb && (
+              <p className="mt-2 text-sm text-text-secondary leading-relaxed line-clamp-2">{item.blurb}</p>
+            )}
+            <span className="mt-4 inline-flex items-center gap-2 rounded-md bg-accent px-5 py-2.5 font-sans font-semibold text-sm text-bg group-hover:bg-accent-hover transition-colors duration-200">
+              {item.cta}
+              <svg className="transition-transform duration-200 group-hover:translate-x-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </span>
+          </Link>
+        </motion.div>
+      </AnimatePresence>
+
+      {reel.length > 1 && (
+        <div className="mt-5 flex items-center gap-3">
+          <div className="flex items-center gap-1.5 flex-1">
+            {reel.map((_, i) => (
+              <button
+                key={i}
+                aria-label={`Show feature ${i + 1}`}
+                onClick={() => setIdx(i)}
+                className={`h-1.5 rounded-full transition-all duration-300 ${i === idx ? "w-6 bg-accent" : "w-1.5 bg-border hover:bg-text-muted"}`}
+              />
             ))}
-          </motion.div>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={prev}
+              aria-label="Previous feature"
+              className="flex h-8 w-8 items-center justify-center rounded-md border border-border text-text-secondary hover:border-accent hover:text-accent transition-colors duration-200"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+            <button
+              onClick={next}
+              aria-label="Next feature"
+              className="flex h-8 w-8 items-center justify-center rounded-md border border-border text-text-secondary hover:border-accent hover:text-accent transition-colors duration-200"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+          </div>
         </div>
+      )}
+    </div>
+  );
+}
+
+export default function HeroSection({ items }: Props) {
+  const router = useRouter();
+  const [sel, setSel] = useState(0);
+  const selRef = useRef(0);
+  useEffect(() => { selRef.current = sel; }, [sel]);
+
+  // Arrow-key + Enter navigation, like a game menu. Ignored while typing.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (document.activeElement as HTMLElement | null)?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA") return;
+      if (e.key === "ArrowDown") { e.preventDefault(); setSel((s) => (s + 1) % MENU.length); }
+      else if (e.key === "ArrowUp") { e.preventDefault(); setSel((s) => (s - 1 + MENU.length) % MENU.length); }
+      else if (e.key === "Enter") { router.push(MENU[selRef.current].href); }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [router]);
+
+  return (
+    <section className="relative min-h-[calc(100vh-5rem)] pt-20 flex items-center overflow-hidden">
+      {/* Faint grid texture + soft brand glows over the ambient body bg */}
+      <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{
+        backgroundImage: "linear-gradient(var(--color-accent) 1px, transparent 1px), linear-gradient(90deg, var(--color-accent) 1px, transparent 1px)",
+        backgroundSize: "56px 56px",
+      }} />
+      <div className="absolute -top-24 right-0 h-[520px] w-[520px] rounded-full bg-accent opacity-[0.10] blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-0 -left-24 h-[420px] w-[420px] rounded-full bg-[#f6b327] opacity-[0.07] blur-[130px] pointer-events-none" />
+
+      <div className="relative w-full max-w-7xl mx-auto px-6 py-10 lg:py-14 grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-center">
+
+        {/* ── Left: brand + menu ─────────────────────────────── */}
+        <motion.div variants={stagger} initial="hidden" animate="show">
+          {/* HUD label */}
+          <motion.div variants={fadeUp} className="flex items-center gap-2.5 mb-6">
+            <span className="flex h-6 w-6 items-center justify-center rounded bg-accent font-display text-sm font-extrabold text-bg">M</span>
+            <span className="font-display text-xs font-bold uppercase tracking-[0.2em] text-text-muted">Main Menu</span>
+            <span className="flex items-center gap-1.5 ml-1 font-display text-xs font-bold uppercase tracking-[0.16em] text-[#f6b327]">
+              <motion.span animate={{ opacity: [1, 1, 0.25] }} transition={{ duration: 1.6, repeat: Infinity, times: [0, 0.6, 1] }}>●</motion.span>
+              Online
+            </span>
+          </motion.div>
+
+          {/* Wordmark */}
+          <motion.h1 variants={fadeUp} className="font-display font-extrabold uppercase tracking-tight text-text-primary leading-[0.88] text-6xl sm:text-7xl lg:text-8xl">
+            Minus<br />Marco
+          </motion.h1>
+          <motion.div variants={fadeUp} className="mt-5 h-1 w-16 rounded-full bg-[#f6b327]" />
+          <motion.p variants={fadeUp} className="mt-4 text-text-secondary text-base sm:text-lg max-w-md leading-relaxed">
+            The expansion pack to your game — game journalism, culture, and community from Fresno.
+          </motion.p>
+
+          {/* Menu */}
+          <nav className="mt-8 flex flex-col gap-1 max-w-md">
+            {MENU.map((item, i) => {
+              const isSel = sel === i;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onMouseEnter={() => setSel(i)}
+                  onFocus={() => setSel(i)}
+                  className="relative flex items-center gap-3 rounded-lg px-4 py-3 outline-none"
+                >
+                  {isSel && (
+                    <motion.div
+                      layoutId="menu-highlight"
+                      className="absolute inset-0 rounded-lg bg-accent/10 border-l-[3px] border-[#f6b327]"
+                      transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                    />
+                  )}
+                  <span className={`relative z-10 font-display text-lg ${isSel ? "text-[#f6b327]" : "text-text-muted"}`}>▸</span>
+                  <span className="relative z-10 flex-1">
+                    <span className={`block font-display text-2xl sm:text-3xl font-extrabold uppercase tracking-wide leading-none transition-colors duration-200 ${isSel ? "text-text-primary" : "text-text-secondary"}`}>
+                      {item.label}
+                    </span>
+                    <span className="block mt-1 font-sans text-xs text-text-muted">{item.sub}</span>
+                  </span>
+                  <span className="relative z-10 font-display text-xs font-bold text-text-muted tabular-nums">0{i + 1}</span>
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Hint bar */}
+          <div className="mt-6 flex items-center gap-3 font-display text-[11px] font-bold uppercase tracking-[0.15em] text-text-muted">
+            <span><span className="text-text-secondary">↑ ↓</span> Navigate</span>
+            <span className="text-border">|</span>
+            <span><span className="text-text-secondary">⏎</span> Select</span>
+            <span className="text-border">|</span>
+            <span>or click</span>
+          </div>
+        </motion.div>
+
+        {/* ── Right: cycling "Continue" feature reel ──────────── */}
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35, duration: 0.5 }}>
+          <FeatureReel items={items} />
+        </motion.div>
       </div>
     </section>
   );

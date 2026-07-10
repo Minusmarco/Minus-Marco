@@ -12,6 +12,7 @@ import { notFound } from "next/navigation";
 type Article = {
   _id: string;
   title: string;
+  subtitle?: string;
   slug: { current: string };
   category: string;
   excerpt: string;
@@ -100,8 +101,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   return (
     <article className="min-h-screen pt-20">
       <ReadingProgress />
-      {/* Cover image header */}
-      <div className="relative h-[60vh] bg-surface-raised overflow-hidden">
+      {/* Cover image header — crisp photo with the title in a floating panel */}
+      <div className="relative h-[60vh] min-h-[440px] bg-surface-raised overflow-hidden">
         {imageUrl ? (
           <Image
             src={imageUrl}
@@ -113,20 +114,28 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         ) : (
           <div className="absolute inset-0 bg-gradient-to-br from-surface-raised via-[#0E1520] to-bg" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/60 to-transparent" />
 
-        <div className="absolute bottom-0 left-0 right-0 max-w-4xl mx-auto px-6 pb-10">
-          <span className="inline-block mb-4 rounded-sm bg-accent px-3 py-1 font-display text-xs font-bold uppercase tracking-widest text-bg">
-            {article.category}
-          </span>
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-text-primary leading-tight">
-            {article.title}
-          </h1>
-          {article.publishedAt && (
-            <p className="mt-4 text-text-muted text-sm font-sans">
-              by Minus Marco &middot; {formatDate(article.publishedAt)}
-            </p>
-          )}
+        <div className="absolute inset-0 flex items-end">
+          <div className="w-full max-w-4xl mx-auto px-6 pb-8">
+            <div className="max-w-2xl rounded-2xl border border-white/50 bg-white/75 backdrop-blur-md p-6 sm:p-8 shadow-[0_20px_50px_-15px_rgba(15,23,42,0.35)]">
+              <span className="inline-block mb-4 rounded-sm bg-accent px-3 py-1 font-display text-xs font-bold uppercase tracking-widest text-bg">
+                {article.category}
+              </span>
+              <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary leading-tight">
+                {article.title}
+              </h1>
+              {article.subtitle && (
+                <p className="mt-4 text-lg sm:text-xl text-text-secondary font-sans leading-relaxed">
+                  {article.subtitle}
+                </p>
+              )}
+              {article.publishedAt && (
+                <p className="mt-4 text-text-muted text-sm font-sans">
+                  by Minus Marco &middot; {formatDate(article.publishedAt)}
+                </p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
 

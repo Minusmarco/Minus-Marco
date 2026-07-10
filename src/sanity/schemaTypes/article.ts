@@ -12,6 +12,12 @@ export const article = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "subtitle",
+      title: "Subtitle",
+      type: "string",
+      description: "A short line shown under the headline. Optional.",
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",

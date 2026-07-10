@@ -40,7 +40,7 @@ export default async function ArticlesPreview() {
           <div>
             <div className="flex items-center gap-2 mb-2">
               <div className="h-px w-6 bg-accent" />
-              <span className="font-display text-xs font-bold uppercase tracking-widest text-accent">Latest</span>
+              <span className="font-display text-xs font-bold uppercase tracking-widest text-accent">Select a Story</span>
             </div>
             <h2 className="font-display text-4xl sm:text-5xl font-bold text-text-primary">From the desk.</h2>
           </div>
@@ -58,7 +58,7 @@ export default async function ArticlesPreview() {
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {hasArticles
-            ? displayArticles.map((article) => {
+            ? displayArticles.map((article, i) => {
                 const imageUrl = article.coverImage
                   ? urlFor(article.coverImage).width(600).height(340).url()
                   : null;
@@ -76,7 +76,9 @@ export default async function ArticlesPreview() {
                           <span className="font-display text-4xl font-bold text-text-muted opacity-20">MM</span>
                         </div>
                       )}
-                      <div className="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent" />
+                      <span className="absolute top-3 left-3 flex items-center justify-center h-7 min-w-7 px-1.5 rounded-md bg-bg/85 backdrop-blur-sm font-display text-xs font-bold text-text-primary tabular-nums">
+                        0{i + 1}
+                      </span>
                       <span className="absolute bottom-3 left-3 rounded-sm bg-accent px-2 py-0.5 font-display text-xs font-bold uppercase tracking-widest text-bg">
                         {article.category}
                       </span>

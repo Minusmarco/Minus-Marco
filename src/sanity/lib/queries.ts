@@ -75,6 +75,7 @@ export const articleBySlugQuery = groq`
   *[_type == "article" && slug.current == $slug][0] {
     _id,
     title,
+    subtitle,
     slug,
     "category": category->title,
     excerpt,

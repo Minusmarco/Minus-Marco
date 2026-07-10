@@ -108,7 +108,6 @@ export default function ArticleFilter({
                         <Image src="/logo-mark.png" alt="" width={48} height={48} className="w-12 h-12 object-contain opacity-10" />
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-surface/80 to-transparent" />
                     <span className="absolute bottom-3 left-3 rounded-sm bg-accent px-2 py-0.5 font-display text-xs font-bold uppercase tracking-widest text-bg">
                       {article.category}
                     </span>

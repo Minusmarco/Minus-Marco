@@ -1,0 +1,29 @@
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
+
+type Props = {
+  children: React.ReactNode;
+  className?: string;
+  y?: number;
+  delay?: number;
+};
+
+// Slides + fades its children in as they scroll into view — the "content
+// assembles as you arrive" feel. Animates once, respects reduced motion.
+export default function Reveal({ children, className, y = 28, delay = 0 }: Props) {
+  const reduced = useReducedMotion();
+  if (reduced) return <div className={className}>{children}</div>;
+
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay }}
+    >
+      {children}
+    </motion.div>
+  );
+}
