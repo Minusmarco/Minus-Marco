@@ -109,7 +109,6 @@ function FeatureReel({ items }: { items: FeatureItem[] }) {
             </span>
           </Link>
         </motion.div>
-      </AnimatePresence>
 
       {reel.length > 1 && (
         <div className="mt-5 flex items-center gap-3">
