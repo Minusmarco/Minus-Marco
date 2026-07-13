@@ -197,7 +197,7 @@ export default function HeroSection({ items }: Props) {
           </motion.h1>
           <motion.div variants={fadeUp} className="mt-5 h-1 w-16 rounded-full bg-[#f6b327]" />
           <motion.p variants={fadeUp} className="mt-4 text-text-secondary text-base sm:text-lg max-w-md leading-relaxed">
-            The expansion pack to your game — game journalism, culture, and community from Fresno.
+            The expansion pack to your game: Game journalism, culture, and community from Fresno.
           </motion.p>
 
           {/* Menu */}
