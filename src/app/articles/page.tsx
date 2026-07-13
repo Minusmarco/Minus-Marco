@@ -8,7 +8,7 @@ type Article = {
   _id: string;
   title: string;
   slug: { current: string };
-  category: string;
+  categories: string[];
   excerpt: string;
   coverImage?: { asset: object; alt?: string };
   publishedAt: string;

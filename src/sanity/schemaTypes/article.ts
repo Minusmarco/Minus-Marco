@@ -25,11 +25,23 @@ export const article = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "categories",
+      title: "Categories",
+      type: "array",
+      of: [{ type: "reference", to: [{ type: "category" }] }],
+      validation: (Rule) => Rule.required().min(1).unique(),
+      description: "Pick one or more — articles can span multiple categories.",
+    }),
+    defineField({
+      // Deprecated: superseded by `categories`. Hidden so legacy data on older
+      // articles is preserved and still readable via the query fallback. Safe
+      // to remove once every article has been moved to `categories`.
       name: "category",
-      title: "Category",
+      title: "Category (legacy)",
       type: "reference",
       to: [{ type: "category" }],
-      validation: (Rule) => Rule.required(),
+      hidden: true,
+      readOnly: true,
     }),
     defineField({
       name: "featured",
@@ -78,7 +90,7 @@ export const article = defineType({
     }),
   ],
   preview: {
-    select: { title: "title", media: "coverImage", subtitle: "category.title" },
+    select: { title: "title", media: "coverImage" },
   },
   orderings: [
     {

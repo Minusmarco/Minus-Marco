@@ -8,7 +8,7 @@ type Article = {
   _id: string;
   title: string;
   slug: { current: string };
-  category: string;
+  categories: string[];
   excerpt: string;
   coverImage?: { asset: object; alt?: string };
   publishedAt: string;
@@ -79,9 +79,21 @@ export default async function ArticlesPreview() {
                       <span className="absolute top-3 left-3 flex items-center justify-center h-7 min-w-7 px-1.5 rounded-md bg-bg/85 backdrop-blur-sm font-display text-xs font-bold text-text-primary tabular-nums">
                         0{i + 1}
                       </span>
-                      <span className="absolute bottom-3 left-3 rounded-sm bg-accent px-2 py-0.5 font-display text-xs font-bold uppercase tracking-widest text-bg">
-                        {article.category}
-                      </span>
+                      <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5 max-w-[calc(100%-1.5rem)]">
+                        {article.categories.slice(0, 2).map((c) => (
+                          <span key={c} className="rounded-sm bg-accent px-2 py-0.5 font-display text-xs font-bold uppercase tracking-widest text-bg">
+                            {c}
+                          </span>
+                        ))}
+                        {article.categories.length > 2 && (
+                          <span
+                            aria-label={`${article.categories.length - 2} more categor${article.categories.length - 2 === 1 ? "y" : "ies"}`}
+                            className="rounded-sm bg-bg/85 backdrop-blur-sm px-2 py-0.5 font-display text-xs font-bold uppercase tracking-widest text-text-primary"
+                          >
+                            +{article.categories.length - 2}
+                          </span>
+                        )}
+                      </div>
                     </div>
                     <div className="flex flex-col gap-2 p-5 flex-1">
                       <h3 className="font-sans text-base font-semibold text-text-primary leading-snug group-hover:text-accent transition-colors duration-200 line-clamp-2">

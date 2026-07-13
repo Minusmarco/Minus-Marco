@@ -12,7 +12,11 @@ export const allArticlesQuery = groq`
     _id,
     title,
     slug,
-    "category": category->title,
+    "categories": select(
+      defined(categories) => categories[defined(@->title)]->title,
+      defined(category->title) => [category->title],
+      []
+    ),
     excerpt,
     coverImage,
     publishedAt,
@@ -25,7 +29,11 @@ export const featuredArticleQuery = groq`
     _id,
     title,
     slug,
-    "category": category->title,
+    "categories": select(
+      defined(categories) => categories[defined(@->title)]->title,
+      defined(category->title) => [category->title],
+      []
+    ),
     excerpt,
     coverImage,
     publishedAt
@@ -77,7 +85,11 @@ export const articleBySlugQuery = groq`
     title,
     subtitle,
     slug,
-    "category": category->title,
+    "categories": select(
+      defined(categories) => categories[defined(@->title)]->title,
+      defined(category->title) => [category->title],
+      []
+    ),
     excerpt,
     coverImage,
     body,

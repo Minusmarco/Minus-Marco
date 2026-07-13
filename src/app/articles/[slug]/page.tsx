@@ -14,7 +14,7 @@ type Article = {
   title: string;
   subtitle?: string;
   slug: { current: string };
-  category: string;
+  categories: string[];
   excerpt: string;
   coverImage?: { asset: object; alt?: string };
   body: PortableTextBlock[];
@@ -118,9 +118,13 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <div className="absolute inset-0 flex items-end">
           <div className="w-full max-w-4xl mx-auto px-6 pb-8">
             <div className="max-w-2xl rounded-2xl border border-white/50 bg-white/75 backdrop-blur-md p-6 sm:p-8 shadow-[0_20px_50px_-15px_rgba(15,23,42,0.35)]">
-              <span className="inline-block mb-4 rounded-sm bg-accent px-3 py-1 font-display text-xs font-bold uppercase tracking-widest text-bg">
-                {article.category}
-              </span>
+              <div className="mb-4 flex flex-wrap gap-2">
+                {article.categories.map((c) => (
+                  <span key={c} className="inline-block rounded-sm bg-accent px-3 py-1 font-display text-xs font-bold uppercase tracking-widest text-bg">
+                    {c}
+                  </span>
+                ))}
+              </div>
               <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary leading-tight">
                 {article.title}
               </h1>

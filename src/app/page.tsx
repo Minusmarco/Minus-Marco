@@ -22,7 +22,7 @@ type Article = {
   _id: string;
   title: string;
   slug: { current: string };
-  category: string;
+  categories: string[];
   excerpt?: string;
   coverImage?: { asset: object; alt?: string };
   publishedAt?: string;
@@ -60,7 +60,7 @@ export default async function Home() {
     .slice(0, 4)
     .map((a) => ({
       kind: "article",
-      label: a.category,
+      label: a.categories?.[0] ?? "Article",
       title: a.title,
       blurb: a.excerpt ?? "",
       href: `/articles/${a.slug.current}`,

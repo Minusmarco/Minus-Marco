@@ -9,7 +9,7 @@ type Article = {
   _id: string;
   title: string;
   slug: { current: string };
-  category: string;
+  categories: string[];
   excerpt: string;
   coverImage?: { asset: object; alt?: string };
   publishedAt: string;
@@ -38,12 +38,12 @@ export default function ArticleFilter({
 
   // Only show tabs for categories that have at least one published article
   const activeTabs = categories.filter((cat) =>
-    articles.some((a) => a.category === cat.title)
+    articles.some((a) => a.categories.includes(cat.title))
   );
 
   const filtered = active === "All"
     ? articles
-    : articles.filter((a) => a.category === active);
+    : articles.filter((a) => a.categories.includes(active));
 
   return (
     <>
@@ -108,9 +108,21 @@ export default function ArticleFilter({
                         <Image src="/logo-mark.png" alt="" width={48} height={48} className="w-12 h-12 object-contain opacity-10" />
                       </div>
                     )}
-                    <span className="absolute bottom-3 left-3 rounded-sm bg-accent px-2 py-0.5 font-display text-xs font-bold uppercase tracking-widest text-bg">
-                      {article.category}
-                    </span>
+                    <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5 max-w-[calc(100%-1.5rem)]">
+                      {article.categories.slice(0, 2).map((c) => (
+                        <span key={c} className="rounded-sm bg-accent px-2 py-0.5 font-display text-xs font-bold uppercase tracking-widest text-bg">
+                          {c}
+                        </span>
+                      ))}
+                      {article.categories.length > 2 && (
+                        <span
+                          aria-label={`${article.categories.length - 2} more categor${article.categories.length - 2 === 1 ? "y" : "ies"}`}
+                          className="rounded-sm bg-bg/85 backdrop-blur-sm px-2 py-0.5 font-display text-xs font-bold uppercase tracking-widest text-text-primary"
+                        >
+                          +{article.categories.length - 2}
+                        </span>
+                      )}
+                    </div>
                     {article.featured && (
                       <span className="absolute top-3 right-3 rounded-sm bg-[#f6b327] px-2 py-0.5 font-display text-xs font-bold uppercase tracking-widest text-[#0D0E18]">
                         Featured
