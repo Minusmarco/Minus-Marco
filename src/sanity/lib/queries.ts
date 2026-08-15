@@ -69,7 +69,8 @@ export const activeQuoteQuery = groq`
 
 export const allShoutoutsQuery = groq`
   *[_type == "shoutout"] | order(_createdAt desc) {
-    _id, name, handle, platform, note, avatar
+    _id, name, handle, note, avatar, badge, platform,
+    "socials": socials[defined(url) && defined(platform)]{ _key, platform, url }
   }
 `;
 
