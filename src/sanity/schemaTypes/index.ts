@@ -6,5 +6,6 @@ import { debate } from "./debate";
 import { communityQuote } from "./communityQuote";
 import { shoutout } from "./shoutout";
 import { video } from "./video";
+import { socialLink } from "./socialLink";
 
-export const schemaTypes = [article, category, currentlyPlaying, poll, debate, communityQuote, shoutout, video];
+export const schemaTypes = [article, category, currentlyPlaying, poll, debate, communityQuote, shoutout, video, socialLink];

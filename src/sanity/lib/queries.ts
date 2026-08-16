@@ -94,6 +94,11 @@ export const articleBySlugQuery = groq`
     excerpt,
     coverImage,
     body,
-    publishedAt
+    publishedAt,
+    gameInfo {
+      gameTitle, boxArt, score, esrb, platforms,
+      publisher, developer, genre, releaseDate, timeToBeat, editorsNote,
+      "devLinks": devLinks[defined(url) && defined(platform)]{ _key, platform, url }
+    }
   }
 `;

@@ -54,7 +54,10 @@
       "Bash(npx tsc *)",
       "Bash(node -e \"console.log\\(require\\('react-icons/package.json'\\).version\\)\")",
       "Bash(node -e \"const si=require\\('react-icons/si'\\); console.log\\('SiInstagram?', typeof si.SiInstagram, '| SiYoutube?', typeof si.SiYoutube, '| SiX?', typeof si.SiX, '| SiSubstack?', typeof si.SiSubstack, '| SiTiktok?', typeof si.SiTiktok, '| SiDiscord?', typeof si.SiDiscord, '| SiTwitch?', typeof si.SiTwitch, '| SiLinkedin?', typeof si.SiLinkedin\\)\")",
-      "Bash(node -e \"const fa=require\\('react-icons/fa6'\\); const names=['FaLinkedin','FaLinkedinIn','FaFacebook','FaInstagram','FaYoutube','FaXTwitter','FaTiktok','FaDiscord','FaTwitch','FaThreads','FaGithub','FaGlobe','FaLink']; names.forEach\\(n=>console.log\\(n, typeof fa[n]\\)\\)\")"
+      "Bash(node -e \"const fa=require\\('react-icons/fa6'\\); const names=['FaLinkedin','FaLinkedinIn','FaFacebook','FaInstagram','FaYoutube','FaXTwitter','FaTiktok','FaDiscord','FaTwitch','FaThreads','FaGithub','FaGlobe','FaLink']; names.forEach\\(n=>console.log\\(n, typeof fa[n]\\)\\)\")",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(node -e ' *)"
     ]
   }
 }

@@ -5,6 +5,7 @@ import { PortableText, PortableTextBlock } from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
 import ReadingProgress from "@/components/ReadingProgress";
+import GameInfoBox, { type GameInfo } from "@/components/GameInfoBox";
 
 export const dynamic = "force-dynamic";
 import { notFound } from "next/navigation";
@@ -19,6 +20,7 @@ type Article = {
   coverImage?: { asset: object; alt?: string };
   body: PortableTextBlock[];
   publishedAt: string;
+  gameInfo?: GameInfo | null;
 };
 
 function formatDate(iso: string) {
@@ -154,6 +156,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         {article.body && (
           <PortableText value={article.body} components={portableTextComponents} />
         )}
+
+        <GameInfoBox info={article.gameInfo} />
 
         <div className="mt-16 pt-8 border-t border-border">
           <Link

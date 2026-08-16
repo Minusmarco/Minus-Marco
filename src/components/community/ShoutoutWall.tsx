@@ -3,32 +3,9 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { urlFor } from "@/sanity/lib/image";
-import type { IconType } from "react-icons";
-import {
-  FaInstagram, FaYoutube, FaXTwitter, FaTiktok, FaDiscord, FaTwitch,
-  FaLinkedin, FaFacebook, FaThreads, FaGithub, FaGlobe,
-} from "react-icons/fa6";
-import { SiSubstack } from "react-icons/si";
+import { iconFor, isRenderableSocial } from "@/lib/socialIcons";
 
 type Social = { _key: string; platform: string; url: string };
-
-// Map a free-text platform name to a brand icon. Unknown platforms fall back
-// to a generic globe so a link always renders.
-function iconFor(platform: string): IconType {
-  const p = platform.toLowerCase().replace(/[^a-z]/g, "");
-  if (p.includes("threads")) return FaThreads; // before "instagram" — avoids "threadsbyinstagram" mismatch
-  if (p.includes("instagram") || p === "ig") return FaInstagram;
-  if (p.includes("youtube") || p === "yt") return FaYoutube;
-  if (p === "x" || p.includes("twitter")) return FaXTwitter;
-  if (p.includes("tiktok")) return FaTiktok;
-  if (p.includes("discord")) return FaDiscord;
-  if (p.includes("twitch")) return FaTwitch;
-  if (p.includes("linkedin")) return FaLinkedin;
-  if (p.includes("facebook") || p === "fb") return FaFacebook;
-  if (p.includes("github")) return FaGithub;
-  if (p.includes("substack")) return SiSubstack;
-  return FaGlobe;
-}
 
 type Shoutout = {
   _id: string;
@@ -64,9 +41,7 @@ export default function ShoutoutWall({ shoutouts }: { shoutouts: Shoutout[] }) {
             const badgeUrl = s.badge ? urlFor(s.badge).width(48).height(48).url() : null;
             // Only render web links — guard against any non-http scheme
             // (e.g. javascript:) sneaking in from the CMS.
-            const socials = (s.socials ?? []).filter(
-              (soc) => /^https?:\/\//i.test(soc.url) && soc.platform.trim().length > 0,
-            );
+            const socials = (s.socials ?? []).filter(isRenderableSocial);
             return (
               <motion.div
                 key={s._id}

@@ -12,30 +12,7 @@ export const shoutout = defineType({
       title: "Social Links",
       type: "array",
       description: "Add one or more social profiles — each becomes a clickable link.",
-      of: [
-        defineField({
-          name: "social",
-          title: "Social Link",
-          type: "object",
-          fields: [
-            defineField({
-              name: "platform",
-              title: "Platform",
-              type: "string",
-              description: "e.g. Instagram, YouTube, Twitter/X, TikTok, Discord, Twitch",
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({
-              name: "url",
-              title: "URL",
-              type: "url",
-              description: "Link to their page (https://…)",
-              validation: (Rule) => Rule.required().uri({ scheme: ["http", "https"] }),
-            }),
-          ],
-          preview: { select: { title: "platform", subtitle: "url" } },
-        }),
-      ],
+      of: [{ type: "socialLink" }],
     }),
     defineField({
       name: "badge",

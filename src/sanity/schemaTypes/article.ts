@@ -88,6 +88,88 @@ export const article = defineType({
       type: "datetime",
       initialValue: () => new Date().toISOString(),
     }),
+    defineField({
+      name: "gameInfo",
+      title: "Game Info Box",
+      type: "object",
+      description:
+        "Optional spec box shown at the end of the article — for reviews and previews. Leave the game name blank to hide the box entirely.",
+      options: { collapsible: true, collapsed: true },
+      fields: [
+        defineField({
+          name: "gameTitle",
+          title: "Game Name",
+          type: "string",
+          description: "Required for the box to appear.",
+        }),
+        defineField({
+          name: "boxArt",
+          title: "Box Art / Key Art",
+          type: "image",
+          options: { hotspot: true },
+          fields: [defineField({ name: "alt", title: "Alt text", type: "string" })],
+        }),
+        defineField({
+          name: "score",
+          title: "Score (out of 5)",
+          type: "number",
+          description: "Half stars allowed, e.g. 4.5. Leave blank for previews or non-scored pieces.",
+          validation: (Rule) =>
+            Rule.min(0).max(5).custom((v) =>
+              v === undefined || Number.isInteger((v as number) * 2)
+                ? true
+                : "Use whole or half numbers only, e.g. 4 or 4.5.",
+            ),
+        }),
+        defineField({
+          name: "esrb",
+          title: "ESRB Rating",
+          type: "string",
+          options: {
+            list: [
+              { title: "E — Everyone", value: "E" },
+              { title: "E10+ — Everyone 10+", value: "E10+" },
+              { title: "T — Teen", value: "T" },
+              { title: "M — Mature 17+", value: "M" },
+              { title: "AO — Adults Only 18+", value: "AO" },
+              { title: "RP — Rating Pending", value: "RP" },
+            ],
+          },
+        }),
+        defineField({
+          name: "platforms",
+          title: "Platforms",
+          type: "array",
+          of: [{ type: "string" }],
+          description: "e.g. PlayStation 5, Xbox Series X|S, Windows, Switch 2",
+          options: { layout: "tags" },
+        }),
+        defineField({ name: "publisher", title: "Publisher", type: "string" }),
+        defineField({ name: "developer", title: "Developer", type: "string" }),
+        defineField({ name: "genre", title: "Genre", type: "string" }),
+        defineField({ name: "releaseDate", title: "Release Date", type: "date" }),
+        defineField({
+          name: "timeToBeat",
+          title: "Estimated Time to Beat",
+          type: "string",
+          description: "e.g. 16 hours",
+        }),
+        defineField({
+          name: "devLinks",
+          title: "Developer Links",
+          type: "array",
+          of: [{ type: "socialLink" }],
+          description: "Developer/publisher socials — each shows as a clickable icon.",
+        }),
+        defineField({
+          name: "editorsNote",
+          title: "Editor's Note",
+          type: "text",
+          rows: 2,
+          description: "e.g. how the game was provided and which platform it was reviewed on.",
+        }),
+      ],
+    }),
   ],
   preview: {
     select: { title: "title", media: "coverImage" },
