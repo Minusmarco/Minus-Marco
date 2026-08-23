@@ -152,11 +152,31 @@ export default function HeroSection({ items }: Props) {
   const router = useRouter();
   const [sel, setSel] = useState(0);
   const selRef = useRef(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  // Tracked as a ref (not state) so intersection updates don't cause
+  // re-renders — only the keydown handler reads it.
+  const inViewRef = useRef(true);
   useEffect(() => { selRef.current = sel; }, [sel]);
 
-  // Arrow-key + Enter navigation, like a game menu. Ignored while typing.
+  // Only steal arrow-key scrolling while the hero menu is actually on screen
+  // — otherwise a visitor who has scrolled past it can never scroll with the
+  // keyboard again.
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { inViewRef.current = entry.isIntersecting; },
+      { threshold: 0.4 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  // Arrow-key + Enter navigation, like a game menu. Ignored while typing or
+  // once the hero has scrolled out of view.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (!inViewRef.current) return;
       const tag = (document.activeElement as HTMLElement | null)?.tagName;
       if (tag === "INPUT" || tag === "TEXTAREA") return;
       if (e.key === "ArrowDown") { e.preventDefault(); setSel((s) => (s + 1) % MENU.length); }
@@ -168,7 +188,7 @@ export default function HeroSection({ items }: Props) {
   }, [router]);
 
   return (
-    <section className="relative min-h-[calc(100vh-5rem)] pt-20 flex items-center overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-[calc(100vh-5rem)] pt-20 flex items-center overflow-hidden">
       {/* Faint grid texture + soft brand glows over the ambient body bg */}
       <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{
         backgroundImage: "linear-gradient(var(--color-accent) 1px, transparent 1px), linear-gradient(90deg, var(--color-accent) 1px, transparent 1px)",
@@ -232,8 +252,8 @@ export default function HeroSection({ items }: Props) {
             })}
           </nav>
 
-          {/* Hint bar */}
-          <div className="mt-6 flex items-center gap-3 font-display text-[11px] font-bold uppercase tracking-[0.15em] text-text-muted">
+          {/* Hint bar — keyboard-only affordance, meaningless on touch */}
+          <div className="mt-6 hidden items-center gap-3 font-display text-[11px] font-bold uppercase tracking-[0.15em] text-text-muted sm:flex">
             <span><span className="text-text-secondary">↑ ↓</span> Navigate</span>
             <span className="text-border">|</span>
             <span><span className="text-text-secondary">⏎</span> Select</span>
@@ -245,6 +265,25 @@ export default function HeroSection({ items }: Props) {
         {/* ── Right: cycling "Continue" feature reel ──────────── */}
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35, duration: 0.5 }}>
           <FeatureReel items={items} />
+
+          {/* Player One — cross-links to the About page's personality */}
+          <Link
+            href="/about"
+            className="group mt-4 flex items-center gap-3 rounded-xl border border-border bg-surface/70 px-4 py-3 backdrop-blur-sm transition-colors duration-200 hover:border-accent/40"
+          >
+            <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-full border border-border">
+              <Image src="/marco.avif" alt="" fill className="object-cover object-top" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="font-display text-xs font-bold uppercase tracking-wide text-text-primary group-hover:text-accent transition-colors duration-200">
+                Player One: Marco Hernandez
+              </p>
+              <p className="text-xs text-text-muted">Journalist · Fresno, CA</p>
+            </div>
+            <svg className="h-3.5 w-3.5 flex-shrink-0 text-text-muted transition-transform duration-200 group-hover:translate-x-0.5 group-hover:text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </Link>
         </motion.div>
       </div>
     </section>

@@ -87,6 +87,23 @@ export const allTeamMembersQuery = groq`
   }
 `;
 
+export const relatedArticlesQuery = groq`
+  *[_type == "article" && _id != $id && count((
+    select(
+      defined(categories) => categories[defined(@->title)]->title,
+      defined(category->title) => [category->title],
+      []
+    )
+  )[@ in $categories]) > 0] | order(publishedAt desc)[0...3] {
+    _id, title, slug, excerpt, coverImage, publishedAt,
+    "categories": select(
+      defined(categories) => categories[defined(@->title)]->title,
+      defined(category->title) => [category->title],
+      []
+    )
+  }
+`;
+
 export const articleBySlugQuery = groq`
   *[_type == "article" && slug.current == $slug][0] {
     _id,

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { urlFor } from "@/sanity/lib/image";
 import { iconFor, isRenderableSocial } from "@/lib/socialIcons";
+import { MARCO_SOCIALS, CONTACT_EMAIL } from "@/lib/brand";
 
 export type TeamMember = {
   _id: string;
@@ -53,14 +54,24 @@ const LinkedInIcon = () => (
   </svg>
 );
 
-const PLATFORMS = [
-  { label: "Substack",  desc: "Essays, reviews & opinion",      href: "https://substack.com/@itsminusmarco",                  Icon: SubstackIcon },
-  { label: "YouTube",   desc: "Video deep-dives & previews",    href: "https://www.youtube.com/@itsminusmarco",               Icon: YouTubeIcon },
-  { label: "Instagram", desc: "Event coverage & behind scenes", href: "https://www.instagram.com/itsminusmarco",              Icon: InstagramIcon },
-  { label: "X",         desc: "Hot takes & breaking news",      href: "https://x.com/itsminusmarco",                          Icon: XIcon },
-  { label: "TikTok",    desc: "Short-form gaming content",      href: "https://www.tiktok.com/@itsminusmarco",                Icon: TikTokIcon },
-  { label: "LinkedIn",  desc: "Professional work & portfolio",  href: "https://www.linkedin.com/in/marco-hernandez-253908281/", Icon: LinkedInIcon },
-];
+// Hand-drawn icons keyed by the shared MARCO_SOCIALS platform names, so the
+// URL/description data has one source of truth while this page keeps its own
+// (nicer, filled) icon style instead of the outline set used elsewhere.
+const PLATFORM_ICONS: Record<string, () => React.JSX.Element> = {
+  Substack: SubstackIcon,
+  YouTube: YouTubeIcon,
+  Instagram: InstagramIcon,
+  X: XIcon,
+  TikTok: TikTokIcon,
+  LinkedIn: LinkedInIcon,
+};
+
+const PLATFORMS = MARCO_SOCIALS.map((s) => ({
+  label: s.platform,
+  desc: s.desc,
+  href: s.url,
+  Icon: PLATFORM_ICONS[s.platform] ?? SubstackIcon,
+}));
 
 const FAVORITES = [
   { title: "Marvel's Spider-Man Remastered", image: "https://cdn.akamai.steamstatic.com/steam/apps/1817070/library_600x900.jpg", position: "center" },
@@ -218,7 +229,7 @@ export default function AboutContent({ team }: { team: TeamMember[] }) {
                 Read the Work
               </Link>
               <a
-                href="mailto:minusmarcoh@gmail.com"
+                href={`mailto:${CONTACT_EMAIL}`}
                 className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-2.5 font-sans font-medium text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors duration-200"
               >
                 Get in Touch
@@ -445,7 +456,7 @@ export default function AboutContent({ team }: { team: TeamMember[] }) {
             Pitches, collabs, press access, or just want to say hello. Marco's inbox is open.
           </p>
           <a
-            href="mailto:minusmarcoh@gmail.com"
+            href={`mailto:${CONTACT_EMAIL}`}
             className="gold-shine-border group relative mt-8 inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-accent px-8 py-3.5 font-sans font-semibold text-white shadow-lg shadow-accent/30 transition-all duration-300 hover:scale-[1.04] hover:bg-accent-hover hover:shadow-xl hover:shadow-gold/40"
           >
             {/* shine sweep on hover */}
@@ -454,7 +465,7 @@ export default function AboutContent({ team }: { team: TeamMember[] }) {
               <rect x="2" y="4" width="20" height="16" rx="2" />
               <path d="m2 7 10 6 10-6" />
             </svg>
-            <span className="relative">minusmarcoh@gmail.com</span>
+            <span className="relative">{CONTACT_EMAIL}</span>
             <svg className="relative shrink-0 transition-transform duration-200 group-hover:translate-x-1" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>

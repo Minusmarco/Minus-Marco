@@ -1,4 +1,8 @@
-const ITEMS = [
+import Link from "next/link";
+
+export type TickerItem = { label: string; href?: string };
+
+const STATIC_ITEMS: TickerItem[] = [
   { label: "Game Journalism" },
   { label: "Community" },
   { label: "Fresno, CA" },
@@ -13,20 +17,32 @@ const ITEMS = [
   { label: "Minority Voices in Gaming" },
 ];
 
-export default function Ticker() {
-  const repeated = [...ITEMS, ...ITEMS];
+export default function Ticker({ items }: { items?: TickerItem[] }) {
+  const source = items && items.length > 0 ? items : STATIC_ITEMS;
+  const repeated = [...source, ...source];
 
   return (
     <div className="w-full overflow-hidden border-y border-border bg-gradient-to-r from-[#E5F1FB] via-[#EEF4FC] to-[#E5F1FB] py-3 select-none">
       <div className="ticker-track">
-        {repeated.map((item, i) => (
-          <span key={i} className="inline-flex items-center gap-4 px-6 whitespace-nowrap">
+        {repeated.map((item, i) => {
+          const label = (
             <span className="font-display text-xs font-bold uppercase tracking-widest text-text-secondary">
               {item.label}
             </span>
-            <span className="text-accent text-xs">✦</span>
-          </span>
-        ))}
+          );
+          return (
+            <span key={i} className="inline-flex items-center gap-4 px-6 whitespace-nowrap">
+              {item.href ? (
+                <Link href={item.href} className="hover:text-accent-text transition-colors duration-200">
+                  {label}
+                </Link>
+              ) : (
+                label
+              )}
+              <span className="text-accent-text text-xs">✦</span>
+            </span>
+          );
+        })}
       </div>
     </div>
   );

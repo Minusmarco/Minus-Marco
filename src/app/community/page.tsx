@@ -13,17 +13,9 @@ import QuoteOfWeek from "@/components/community/QuoteOfWeek";
 import ShoutoutWall from "@/components/community/ShoutoutWall";
 import Link from "next/link";
 import Image from "next/image";
+import { MARCO_SOCIALS, CONTACT_EMAIL } from "@/lib/brand";
 export const metadata = { title: "Community" };
 export const revalidate = 60;
-
-const PLATFORMS = [
-  { label: "Substack",   desc: "Essays & long reads",         href: "https://substack.com/@itsminusmarco",                  color: "#FF6719" },
-  { label: "YouTube",    desc: "Video deep-dives",            href: "https://www.youtube.com/@itsminusmarco",               color: "#FF0000" },
-  { label: "Instagram",  desc: "Behind the scenes",          href: "https://www.instagram.com/itsminusmarco",              color: "#E1306C" },
-  { label: "X",          desc: "Hot takes daily",            href: "https://x.com/itsminusmarco",                          color: "#EEEEF5" },
-  { label: "TikTok",     desc: "Short-form gaming content",  href: "https://www.tiktok.com/@itsminusmarco",                color: "#69C9D0" },
-  { label: "LinkedIn",   desc: "Professional work",          href: "https://www.linkedin.com/in/marco-hernandez-253908281/", color: "#0A66C2" },
-];
 
 export default async function CommunityPage() {
   const [currentGame, poll, debate, quote, shoutouts] = await Promise.all([
@@ -61,7 +53,7 @@ export default async function CommunityPage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href="mailto:minusmarcoh@gmail.com"
+              href={`mailto:${CONTACT_EMAIL}`}
               className="inline-flex items-center gap-2 rounded-md bg-accent px-6 py-3 font-sans font-semibold text-sm text-bg hover:bg-accent-hover transition-colors duration-200"
             >
               Get in Touch
@@ -108,10 +100,10 @@ export default async function CommunityPage() {
             <span className="font-display text-xs font-bold uppercase tracking-widest text-accent">Find the Community</span>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-            {PLATFORMS.map((p) => (
+            {MARCO_SOCIALS.map((p) => (
               <a
-                key={p.label}
-                href={p.href}
+                key={p.platform}
+                href={p.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex flex-col gap-2 rounded-xl border border-border bg-surface p-5 hover:border-accent/50 hover:-translate-y-1 hover:shadow-xl hover:shadow-shadow/15 transition-all duration-300"
@@ -121,7 +113,7 @@ export default async function CommunityPage() {
                   style={{ backgroundColor: p.color }}
                 />
                 <span className="font-display font-bold text-text-primary text-sm group-hover:text-accent transition-colors duration-200">
-                  {p.label}
+                  {p.platform}
                 </span>
                 <span className="text-xs text-text-muted leading-snug">{p.desc}</span>
               </a>
@@ -153,7 +145,7 @@ export default async function CommunityPage() {
               <rect x="2" y="4" width="20" height="16" rx="2" />
               <path d="m2 7 10 6 10-6" />
             </svg>
-            <span className="relative">minusmarcoh@gmail.com</span>
+            <span className="relative">{CONTACT_EMAIL}</span>
             <svg className="relative shrink-0 transition-transform duration-200 group-hover:translate-x-1" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>

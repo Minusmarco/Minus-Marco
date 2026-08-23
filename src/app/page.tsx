@@ -1,10 +1,12 @@
 import Link from "next/link";
 import HeroSection, { FeatureItem } from "@/components/HeroSection";
-import Ticker from "@/components/Ticker";
+import Ticker, { type TickerItem } from "@/components/Ticker";
 import ArticlesPreview from "@/components/ArticlesPreview";
 import CommunityBanner from "@/components/CommunityBanner";
 import CommunityPoll from "@/components/community/CommunityPoll";
 import DebateOfWeek from "@/components/community/DebateOfWeek";
+import MissionStrip from "@/components/MissionStrip";
+import SubscribeBanner from "@/components/SubscribeBanner";
 import Reveal from "@/components/Reveal";
 import { sanityFetch } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
@@ -91,18 +93,26 @@ export default async function Home() {
   }
   const items = reel.slice(0, 6);
 
+  // Ticker shows real recent headlines when there's content, falling back to
+  // its own static labels when the site is still empty.
+  const tickerItems: TickerItem[] = allArticles.slice(0, 5).map((a) => ({
+    label: `New — ${a.title}`,
+    href: `/articles/${a.slug.current}`,
+  }));
+
   return (
     <main className="flex flex-col flex-1">
       <HeroSection items={items} />
-      <Ticker />
+      <Ticker items={tickerItems} />
       <Reveal><ArticlesPreview /></Reveal>
+      <MissionStrip />
 
       {(!!poll || !!debate) && (
         <Reveal><section className="border-t border-border">
           <div className="max-w-7xl mx-auto px-6 py-16">
             <div className="flex items-center justify-between mb-8 gap-4 flex-wrap">
               <div className="flex items-center gap-2">
-                <span className="flex items-center gap-1.5 font-display text-xs font-bold uppercase tracking-widest text-accent">
+                <span className="flex items-center gap-1.5 font-display text-xs font-bold uppercase tracking-widest text-accent-text">
                   <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
                   Live
                 </span>
@@ -111,7 +121,7 @@ export default async function Home() {
               </div>
               <Link
                 href="/community"
-                className="inline-flex items-center gap-2 text-sm font-sans font-medium text-text-secondary hover:text-accent transition-colors duration-200 group"
+                className="inline-flex items-center gap-2 text-sm font-sans font-medium text-text-secondary hover:text-accent-text transition-colors duration-200 group"
               >
                 Enter the community
                 <svg className="transition-transform duration-200 group-hover:translate-x-1" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -127,6 +137,7 @@ export default async function Home() {
         </section></Reveal>
       )}
 
+      <Reveal><SubscribeBanner /></Reveal>
       <Reveal><CommunityBanner /></Reveal>
     </main>
   );

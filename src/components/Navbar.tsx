@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const NAV_LINKS = [
+export const NAV_LINKS = [
   { label: "Home",      href: "/" },
   { label: "Articles",  href: "/articles" },
   { label: "Videos",    href: "/videos" },
@@ -70,16 +70,6 @@ export default function Navbar() {
 
           {/* Right side */}
           <div className="flex items-center gap-3">
-            <button
-              aria-label="Search"
-              className="text-text-secondary hover:text-accent transition-colors duration-200"
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="8" />
-                <path d="m21 21-4.35-4.35" />
-              </svg>
-            </button>
-
             <Link
               href="/community"
               className="hidden sm:inline-flex items-center gap-2 rounded-md bg-accent px-4 py-2 text-sm font-sans font-semibold text-bg hover:bg-accent-hover transition-colors duration-200"
