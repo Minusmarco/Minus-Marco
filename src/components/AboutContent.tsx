@@ -4,6 +4,23 @@ import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
+import { urlFor } from "@/sanity/lib/image";
+import { iconFor, isRenderableSocial } from "@/lib/socialIcons";
+
+export type TeamMember = {
+  _id: string;
+  name: string;
+  role: string;
+  photo?: { asset: object; alt?: string };
+  socials?: { _key: string; platform: string; url: string }[];
+};
+
+// Display order for the staff role groups (mirrors the schema's TEAM_ROLES).
+const ROLE_ORDER = ["Editor", "Reporter", "Contributor", "Graphic Designer", "Web Developer", "Animator", "Musician"];
+
+function pluralizeRole(role: string): string {
+  return role.endsWith("s") ? role : `${role}s`;
+}
 
 const SubstackIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -100,7 +117,53 @@ function GameCard({ game }: { game: { title: string; image: string; position: st
   );
 }
 
-export default function AboutContent() {
+function TeamCard({ member }: { member: TeamMember }) {
+  const photoUrl = member.photo ? urlFor(member.photo).width(240).height(240).url() : null;
+  const socials = (member.socials ?? []).filter(isRenderableSocial);
+  return (
+    <div className="flex flex-col items-center text-center gap-3 rounded-lg border border-border bg-surface p-5 hover:border-accent/40 transition-colors duration-200">
+      <div className="relative h-20 w-20 rounded-full overflow-hidden bg-surface-raised">
+        {photoUrl ? (
+          <Image src={photoUrl} alt={member.photo?.alt ?? member.name} fill className="object-cover" />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center bg-accent/15">
+            <span className="font-display text-2xl font-bold text-accent">{member.name.charAt(0).toUpperCase()}</span>
+          </div>
+        )}
+      </div>
+      <p className="font-display font-bold text-text-primary leading-tight">{member.name}</p>
+      {socials.length > 0 && (
+        <div className="flex flex-wrap justify-center gap-2">
+          {socials.map((s) => {
+            const Icon = iconFor(s.platform);
+            return (
+              <a
+                key={s._key}
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${member.name} on ${s.platform.trim()} (opens in new tab)`}
+                title={s.platform.trim()}
+                className="flex h-7 w-7 items-center justify-center rounded-full border border-border text-text-muted hover:border-accent hover:text-accent transition-colors duration-200"
+              >
+                <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+              </a>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function AboutContent({ team }: { team: TeamMember[] }) {
+  const staffGroups = [
+    ...ROLE_ORDER.map((role) => ({ role, members: team.filter((m) => m.role === role) })),
+    ...[...new Set(team.map((m) => m.role))]
+      .filter((r) => !ROLE_ORDER.includes(r))
+      .map((role) => ({ role, members: team.filter((m) => m.role === role) })),
+  ].filter((g) => g.members.length > 0);
+
   return (
     <div className="min-h-screen pt-20">
 
@@ -343,6 +406,34 @@ export default function AboutContent() {
           </div>
         </div>
       </section>
+
+      {/* ── STAFF ────────────────────────────────────────────── */}
+      {staffGroups.length > 0 && (
+        <section className="border-b border-border">
+          <div className="max-w-7xl mx-auto px-6 py-20">
+            <FadeUp>
+              <div className="flex items-center gap-2 mb-10">
+                <div className="h-px w-6 bg-accent" />
+                <span className="font-display text-xs font-bold uppercase tracking-widest text-accent">The Team</span>
+              </div>
+            </FadeUp>
+            <div className="flex flex-col gap-12">
+              {staffGroups.map((group) => (
+                <div key={group.role}>
+                  <h2 className="font-display text-2xl font-bold text-text-primary mb-6">{pluralizeRole(group.role)}</h2>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+                    {group.members.map((m, i) => (
+                      <FadeUp key={m._id} delay={i * 0.05}>
+                        <TeamCard member={m} />
+                      </FadeUp>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── CONTACT CTA ──────────────────────────────────────── */}
       <section>

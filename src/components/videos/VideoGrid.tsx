@@ -10,6 +10,7 @@ type Video = {
   description?: string;
   publishedAt?: string;
   featured?: boolean;
+  embedOnSite?: boolean;
 };
 
 // Pull the 11-char video id out of any common YouTube URL shape.
@@ -56,14 +57,11 @@ export default function VideoGrid({ videos }: { videos: Video[] }) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {playable.map((v) => {
           const date = formatDate(v.publishedAt);
-          return (
-            <motion.button
-              key={v._id}
-              onClick={() => setActive({ id: v.id, title: v.title })}
-              whileHover={{ y: -4 }}
-              transition={{ duration: 0.2 }}
-              className="group flex flex-col text-left rounded-xl border border-border bg-surface overflow-hidden hover:border-accent/50 hover:shadow-xl hover:shadow-shadow/15 transition-colors duration-300"
-            >
+          const embed = v.embedOnSite === true;
+          const cardClass =
+            "group flex flex-col text-left rounded-xl border border-border bg-surface overflow-hidden hover:border-accent/50 hover:shadow-xl hover:shadow-shadow/15 transition-colors duration-300";
+          const inner = (
+            <>
               <div className="relative aspect-video overflow-hidden bg-bg">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -76,6 +74,14 @@ export default function VideoGrid({ videos }: { videos: Video[] }) {
                 {v.featured && (
                   <span className="absolute top-3 left-3 rounded-full bg-accent px-2.5 py-1 font-display text-[10px] font-bold uppercase tracking-widest text-bg">
                     Featured
+                  </span>
+                )}
+                {!embed && (
+                  <span className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-bg/85 backdrop-blur-sm px-2 py-1 font-display text-[10px] font-bold uppercase tracking-widest text-text-secondary">
+                    YouTube
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <path d="M7 17 17 7M7 7h10v10" />
+                    </svg>
                   </span>
                 )}
                 <span className="absolute inset-0 flex items-center justify-center">
@@ -95,7 +101,32 @@ export default function VideoGrid({ videos }: { videos: Video[] }) {
                 )}
                 {date && <span className="mt-1 text-xs text-text-muted font-sans">{date}</span>}
               </div>
+            </>
+          );
+
+          return embed ? (
+            <motion.button
+              key={v._id}
+              onClick={() => setActive({ id: v.id, title: v.title })}
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.2 }}
+              className={cardClass}
+            >
+              {inner}
             </motion.button>
+          ) : (
+            <motion.a
+              key={v._id}
+              href={v.youtubeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${v.title} — watch on YouTube (opens in new tab)`}
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.2 }}
+              className={cardClass}
+            >
+              {inner}
+            </motion.a>
           );
         })}
       </div>

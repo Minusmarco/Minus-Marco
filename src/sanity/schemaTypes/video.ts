@@ -21,6 +21,13 @@ export const video = defineType({
     defineField({ name: "description", title: "Description", type: "text", rows: 3, description: "Optional blurb shown under the title." }),
     defineField({ name: "publishedAt", title: "Published At", type: "datetime", description: "Used to order videos (newest first). Defaults to creation date if left blank." }),
     defineField({ name: "featured", title: "Featured", type: "boolean", initialValue: false, description: "Featured videos are highlighted at the top of the page." }),
+    defineField({
+      name: "embedOnSite",
+      title: "Play embedded on the site",
+      type: "boolean",
+      initialValue: false,
+      description: "Off (default): clicking the video opens it on YouTube in a new tab. On: it plays in a popup player on this site.",
+    }),
   ],
   orderings: [
     { title: "Published, newest first", name: "publishedDesc", by: [{ field: "publishedAt", direction: "desc" }] },

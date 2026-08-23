@@ -76,7 +76,14 @@ export const allShoutoutsQuery = groq`
 
 export const allVideosQuery = groq`
   *[_type == "video"] | order(featured desc, coalesce(publishedAt, _createdAt) desc) {
-    _id, title, youtubeUrl, description, publishedAt, featured
+    _id, title, youtubeUrl, description, publishedAt, featured, embedOnSite
+  }
+`;
+
+export const allTeamMembersQuery = groq`
+  *[_type == "teamMember"] | order(coalesce(order, 999) asc, name asc) {
+    _id, name, role, photo,
+    "socials": socials[defined(url) && defined(platform)]{ _key, platform, url }
   }
 `;
 
