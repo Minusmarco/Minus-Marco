@@ -236,15 +236,19 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
       {/* Body */}
       <div className="max-w-4xl mx-auto px-6 py-12">
-        {article.excerpt && (
-          <p className="mb-10 text-xl text-text-secondary leading-relaxed border-l-4 border-accent pl-6 italic">
-            {article.excerpt}
-          </p>
-        )}
+        {/* Narrower measure for actual reading prose; cards below stay full width. */}
+        <div className="max-w-3xl mx-auto">
+          {/* Skip the pull-quote when it just repeats the subtitle already shown above. */}
+          {article.excerpt && article.excerpt.trim().toLowerCase() !== (article.subtitle ?? "").trim().toLowerCase() && (
+            <p className="mb-10 text-xl text-text-secondary leading-relaxed border-l-4 border-accent pl-6 italic">
+              {article.excerpt}
+            </p>
+          )}
 
-        {article.body && (
-          <PortableText value={article.body} components={portableTextComponents} />
-        )}
+          {article.body && (
+            <PortableText value={article.body} components={portableTextComponents} />
+          )}
+        </div>
 
         <GameInfoBox info={article.gameInfo} />
 

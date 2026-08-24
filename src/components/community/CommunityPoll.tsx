@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { useLocalStorageValue } from "@/lib/useLocalStorageValue";
 
 type Props = {
   data: {
@@ -20,17 +21,10 @@ function align(votes: number[] | undefined, len: number): number[] {
 }
 
 export default function CommunityPoll({ data }: Props) {
-  const [voted, setVoted] = useState<string | null>(null);
+  const [voted, writeVoted] = useLocalStorageValue(`poll-${data?._id ?? "none"}`);
   const [counts, setCounts] = useState<number[]>(
     align(data?.votes, data?.options.length ?? 0),
   );
-
-  useEffect(() => {
-    if (!data) return;
-    setCounts(align(data.votes, data.options.length));
-    const stored = localStorage.getItem(`poll-${data._id}`);
-    if (stored) setVoted(stored);
-  }, [data]);
 
   if (!data) {
     return (
@@ -42,8 +36,7 @@ export default function CommunityPoll({ data }: Props) {
 
   async function vote(option: string, index: number) {
     if (voted || !data) return;
-    setVoted(option);
-    localStorage.setItem(`poll-${data._id}`, option);
+    writeVoted(option);
     // Optimistically reflect the vote so results appear instantly.
     setCounts((c) => c.map((n, i) => (i === index ? n + 1 : n)));
     try {

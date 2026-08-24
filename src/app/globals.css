@@ -11,7 +11,8 @@
   animation: ticker 30s linear infinite;
 }
 
-.ticker-track:hover {
+.ticker-track:hover,
+.ticker-track.ticker-paused {
   animation-play-state: paused;
 }
 
@@ -79,6 +80,9 @@
      leave fills, pills, and buttons on the vivid tokens. */
   --color-accent-text:    #0f6f91;
   --color-gold-text:      #8a5c07;
+
+  /* Dark surface — used only by the footer, the site's single dark band. */
+  --color-ink:            #0D0E18;
 
   /* Fonts */
   --font-display: var(--font-barlow);

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { urlFor } from "@/sanity/lib/image";
@@ -34,7 +35,21 @@ export default function ArticleFilter({
   articles: Article[];
   categories: Category[];
 }) {
-  const [active, setActive] = useState("All");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get("category");
+  const [active, setActive] = useState(initialCategory && initialCategory.length > 0 ? initialCategory : "All");
+
+  // Keep the filter shareable/refreshable: reflect the active tab in the URL.
+  function selectCategory(cat: string) {
+    setActive(cat);
+    const params = new URLSearchParams(searchParams.toString());
+    if (cat === "All") params.delete("category");
+    else params.set("category", cat);
+    const qs = params.toString();
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  }
 
   // Only show tabs for categories that have at least one published article
   const activeTabs = categories.filter((cat) =>
@@ -51,7 +66,7 @@ export default function ArticleFilter({
       {activeTabs.length > 0 && (
         <div className="mt-8 flex flex-wrap gap-2">
           <button
-            onClick={() => setActive("All")}
+            onClick={() => selectCategory("All")}
             className={[
               "rounded-md border px-4 py-1.5 text-sm font-sans font-medium transition-colors duration-200",
               active === "All"
@@ -64,7 +79,7 @@ export default function ArticleFilter({
           {activeTabs.map((cat) => (
             <button
               key={cat._id}
-              onClick={() => setActive(cat.title)}
+              onClick={() => selectCategory(cat.title)}
               className={[
                 "rounded-md border px-4 py-1.5 text-sm font-sans font-medium transition-colors duration-200",
                 active === cat.title

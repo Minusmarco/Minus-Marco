@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { sanityFetch } from "@/sanity/lib/client";
 import { allArticlesQuery, allCategoriesQuery } from "@/sanity/lib/queries";
 import ArticleFilter from "@/components/ArticleFilter";
@@ -36,7 +37,9 @@ export default async function ArticlesPage() {
           Reviews, news, opinions, and features from Minus Marco.
         </p>
 
-        <ArticleFilter articles={articles} categories={categories} />
+        <Suspense fallback={null}>
+          <ArticleFilter articles={articles} categories={categories} />
+        </Suspense>
       </div>
     </div>
   );

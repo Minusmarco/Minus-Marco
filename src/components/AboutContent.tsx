@@ -270,9 +270,9 @@ export default function AboutContent({ team }: { team: TeamMember[] }) {
       <section className="border-b border-border bg-surface">
         <FadeUp className="max-w-7xl mx-auto px-6 py-16">
           <blockquote className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary leading-tight max-w-4xl">
-            <span className="text-[#f6b327]">"</span>
+            <span className="text-[#f6b327]">&ldquo;</span>
             The expansion pack to your game.
-            <span className="text-[#f6b327]">"</span>
+            <span className="text-[#f6b327]">&rdquo;</span>
           </blockquote>
           <p className="mt-6 text-text-secondary max-w-2xl leading-relaxed">
             Just like downloadable content enhances a game you already love, Minus Marco is
@@ -298,7 +298,7 @@ export default function AboutContent({ team }: { team: TeamMember[] }) {
                 Where it started
               </h2>
               <p className="text-text-secondary leading-relaxed">
-                Marco grew up in Central California's agricultural heartland, in a Mexican-immigrant
+                Marco grew up in Central California&apos;s agricultural heartland, in a Mexican-immigrant
                 household where video games were more than entertainment. They were a portal. It
                 started with Marvel vs. Capcom on PlayStation and never really stopped.
               </p>
@@ -311,8 +311,8 @@ export default function AboutContent({ team }: { team: TeamMember[] }) {
               <p className="text-text-secondary leading-relaxed">
                 Marco studied journalism at Fresno City College before earning a BA in Media,
                 Communications & Journalism from Fresno State, specializing in advertising and
-                PR. He's applied that craft everywhere from The Collegian and The Rampage to the
-                City of Fresno's marketing office.
+                PR. He&apos;s applied that craft everywhere from The Collegian and The Rampage to the
+                City of Fresno&apos;s marketing office.
               </p>
             </FadeUp>
 
@@ -323,7 +323,7 @@ export default function AboutContent({ team }: { team: TeamMember[] }) {
               <p className="text-text-secondary leading-relaxed">
                 Minus Marco exists to inform, represent, and build a future for youth, minority,
                 and smaller communities in and around the gaming industry. Gaming culture shaped
-                Marco. Now he's trying to make sure it reflects the people who love it most.
+                Marco. Now he&apos;s trying to make sure it reflects the people who love it most.
               </p>
             </FadeUp>
 
@@ -450,10 +450,10 @@ export default function AboutContent({ team }: { team: TeamMember[] }) {
       <section>
         <FadeUp className="max-w-7xl mx-auto px-6 py-24 text-center">
           <h2 className="font-display text-5xl sm:text-6xl font-bold text-text-primary">
-            Let's talk games.
+            Let&apos;s talk games.
           </h2>
           <p className="mt-4 text-text-secondary text-lg max-w-md mx-auto">
-            Pitches, collabs, press access, or just want to say hello. Marco's inbox is open.
+            Pitches, collabs, press access, or just want to say hello. Marco&apos;s inbox is open.
           </p>
           <a
             href={`mailto:${CONTACT_EMAIL}`}

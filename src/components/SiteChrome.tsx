@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import LevelLoader from "@/components/LevelLoader";
 import Footer from "@/components/Footer";
+import SearchModal from "@/components/SearchModal";
 
 // Sanity Studio (/studio) renders its own full-screen app and must not be
 // wrapped in the site's navbar/footer/loader chrome.
@@ -20,6 +21,7 @@ export default function SiteChrome({ children }: { children: React.ReactNode }) 
       </a>
       <Navbar />
       <LevelLoader />
+      <SearchModal />
       <div id="main-content" className="flex flex-1 flex-col">
         {children}
       </div>

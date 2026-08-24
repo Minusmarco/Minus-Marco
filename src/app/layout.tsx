@@ -30,13 +30,11 @@ export const metadata: Metadata = {
     locale: "en_US",
     title: "Minus Marco",
     description,
-    images: [{ url: "/logo-full.png" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Minus Marco",
     description,
-    images: ["/logo-full.png"],
   },
 };
 

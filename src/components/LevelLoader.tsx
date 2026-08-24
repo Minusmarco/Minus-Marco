@@ -14,22 +14,30 @@ const TIPS = [
   "Tip: press ↑ ↓ to work the main menu.",
 ];
 
+// Below this, a navigation feels instant and the loading screen would just
+// be noise — it only appears if the route hasn't committed by then.
+const SHOW_DELAY_MS = 150;
+const HOLD_MS = 250;
+const SAFETY_MS = 2500;
+
 export default function LevelLoader() {
   const pathname = usePathname();
   const reduced = useReducedMotion();
   const [loading, setLoading] = useState(false);
   const [tip, setTip] = useState(TIPS[0]);
   const first = useRef(true);
+  const showTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const safety = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const clearTimers = () => {
+    if (showTimer.current) clearTimeout(showTimer.current);
     if (safety.current) clearTimeout(safety.current);
     if (hideTimer.current) clearTimeout(hideTimer.current);
   };
 
-  // Drop the loading screen the instant an internal link is clicked, so it
-  // covers the old page before the new one commits.
+  // On click, wait a beat before showing anything — prefetched routes commit
+  // well inside that window and should feel instant, not flash a screen.
   useEffect(() => {
     if (reduced) return;
     const onClick = (e: MouseEvent) => {
@@ -41,23 +49,28 @@ export default function LevelLoader() {
       if (a.target === "_blank" || a.hasAttribute("download")) return;
       const url = new URL(a.href, window.location.href);
       if (url.pathname === window.location.pathname) return;
-      setTip(TIPS[Math.floor(Math.random() * TIPS.length)]);
-      setLoading(true);
       clearTimers();
-      // Failsafe: never let the loader stick if navigation is cancelled.
-      safety.current = setTimeout(() => setLoading(false), 2500);
+      showTimer.current = setTimeout(() => {
+        setTip(TIPS[Math.floor(Math.random() * TIPS.length)]);
+        setLoading(true);
+        // Failsafe: never let the loader stick if navigation is cancelled.
+        safety.current = setTimeout(() => setLoading(false), SAFETY_MS);
+      }, SHOW_DELAY_MS);
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
   }, [reduced]);
 
-  // Once the new route commits, hold the screen briefly, then lift it away.
+  // Once the new route commits: if the show-timer never fired, the nav was
+  // fast enough that the loader should never appear at all. Otherwise hold
+  // briefly, then lift it away.
   useEffect(() => {
     if (first.current) { first.current = false; return; }
+    if (showTimer.current) { clearTimeout(showTimer.current); showTimer.current = null; }
     if (!loading) return;
-    clearTimers();
-    hideTimer.current = setTimeout(() => setLoading(false), 480);
-    return clearTimers;
+    if (hideTimer.current) clearTimeout(hideTimer.current);
+    hideTimer.current = setTimeout(() => setLoading(false), HOLD_MS);
+    return () => { if (hideTimer.current) clearTimeout(hideTimer.current); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 

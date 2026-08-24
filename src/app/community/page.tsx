@@ -38,7 +38,7 @@ export default async function CommunityPage() {
           backgroundSize: "60px 60px",
         }} />
 
-        <div className="relative max-w-7xl mx-auto px-6 py-20 sm:py-28">
+        <div className="relative max-w-7xl mx-auto px-6 py-14 sm:py-20">
           <div className="flex items-center gap-2 mb-6">
             <div className="h-px w-8 bg-[#f6b327]" />
             <span className="font-display text-xs font-bold uppercase tracking-widest text-[#f6b327]">The Hub</span>

@@ -1,9 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
+import { MARCO_SOCIALS } from "@/lib/brand";
 
 export default function CommunityBanner() {
+  const substackUrl = MARCO_SOCIALS.find((s) => s.platform === "Substack")?.url ?? "https://substack.com/@itsminusmarco";
+
   return (
-    <section className="border-t border-border relative overflow-hidden">
+    <section className="relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-accent/15 via-[#EDF5FC] to-white" />
       <div className="absolute -top-24 -left-24 h-[400px] w-[400px] rounded-full bg-accent opacity-[0.14] blur-[100px] pointer-events-none" />
@@ -47,6 +50,14 @@ export default function CommunityBanner() {
           >
             About Marco
           </Link>
+          <a
+            href={substackUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-center text-xs font-sans text-text-muted hover:text-accent-text transition-colors duration-200"
+          >
+            Prefer email? Subscribe on Substack →
+          </a>
         </div>
       </div>
     </section>

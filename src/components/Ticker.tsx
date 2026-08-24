@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 export type TickerItem = { label: string; href?: string };
@@ -20,10 +23,22 @@ const STATIC_ITEMS: TickerItem[] = [
 export default function Ticker({ items }: { items?: TickerItem[] }) {
   const source = items && items.length > 0 ? items : STATIC_ITEMS;
   const repeated = [...source, ...source];
+  const wrapRef = useRef<HTMLDivElement>(null);
+  // Off-screen tickers keep animating for nothing — pause the CSS animation
+  // outside the viewport so it's not one more thing moving at all times.
+  const [offscreen, setOffscreen] = useState(false);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => setOffscreen(!entry.isIntersecting), { threshold: 0 });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="w-full overflow-hidden border-y border-border bg-gradient-to-r from-[#E5F1FB] via-[#EEF4FC] to-[#E5F1FB] py-3 select-none">
-      <div className="ticker-track">
+    <div ref={wrapRef} className="w-full overflow-hidden border-y border-border bg-gradient-to-r from-[#E5F1FB] via-[#EEF4FC] to-[#E5F1FB] py-3 select-none">
+      <div className={`ticker-track${offscreen ? " ticker-paused" : ""}`}>
         {repeated.map((item, i) => {
           const label = (
             <span className="font-display text-xs font-bold uppercase tracking-widest text-text-secondary">

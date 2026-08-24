@@ -1,23 +1,15 @@
 import { MARCO_SOCIALS } from "@/lib/brand";
 
-type Props = { compact?: boolean };
-
 // Points at Marco's existing Substack rather than building a custom
 // email-capture backend — Substack already owns delivery + list management.
-export default function SubscribeBanner({ compact = false }: Props) {
+export default function SubscribeBanner() {
   const substackUrl = MARCO_SOCIALS.find((s) => s.platform === "Substack")?.url ?? "https://substack.com/@itsminusmarco";
 
   return (
-    <div
-      className={
-        compact
-          ? "flex flex-col items-start gap-4 rounded-xl border border-border bg-surface p-6 sm:flex-row sm:items-center sm:justify-between"
-          : "border-y border-border bg-surface"
-      }
-    >
-      <div className={compact ? "" : "max-w-7xl mx-auto px-6 py-14 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between"}>
+    <div className="border-b border-border bg-surface">
+      <div className="max-w-7xl mx-auto px-6 py-14 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="font-display text-xs font-bold uppercase tracking-widest text-accent mb-2">Never Miss a Drop</p>
+          <p className="font-display text-xs font-bold uppercase tracking-widest text-accent-text mb-2">Never Miss a Drop</p>
           <h3 className="font-display text-2xl sm:text-3xl font-bold text-text-primary leading-tight">
             Get every story straight to your inbox.
           </h3>

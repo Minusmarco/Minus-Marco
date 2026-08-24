@@ -6,15 +6,14 @@ import Reveal from "@/components/Reveal";
 // the strongest hook for a visitor who doesn't care about games.
 export default function MissionStrip() {
   return (
-    <section className="border-b border-border bg-surface">
+    <section className="bg-surface">
       <Reveal className="max-w-7xl mx-auto px-6 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-8 lg:gap-12 items-center">
           <div className="relative h-20 w-20 sm:h-24 sm:w-24 flex-shrink-0 overflow-hidden rounded-full border border-border">
             <Image src="/marco.avif" alt="Marco Hernandez" fill className="object-cover object-top" />
           </div>
           <div>
-            <p className="font-display text-xs font-bold uppercase tracking-widest text-accent mb-3">Why Minus Marco</p>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary leading-tight max-w-3xl">
+            <h2 className="font-sans text-2xl sm:text-3xl lg:text-4xl font-normal text-text-primary leading-snug max-w-3xl">
               Amplifying the voices gaming forgot to invite.
             </h2>
             <p className="mt-4 text-text-secondary text-base sm:text-lg leading-relaxed max-w-2xl">

@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { useLocalStorageValue } from "@/lib/useLocalStorageValue";
 
 type Props = {
   data: {
@@ -16,18 +17,12 @@ type Props = {
 };
 
 export default function DebateOfWeek({ data }: Props) {
-  const [voted, setVoted] = useState<"A" | "B" | null>(null);
+  const [votedRaw, writeVoted] = useLocalStorageValue(`debate-${data?._id ?? "none"}`);
+  const voted: "A" | "B" | null = votedRaw === "A" || votedRaw === "B" ? votedRaw : null;
   const [counts, setCounts] = useState({
     a: data?.votesA ?? 0,
     b: data?.votesB ?? 0,
   });
-
-  useEffect(() => {
-    if (!data) return;
-    setCounts({ a: data.votesA ?? 0, b: data.votesB ?? 0 });
-    const stored = localStorage.getItem(`debate-${data._id}`);
-    if (stored === "A" || stored === "B") setVoted(stored);
-  }, [data]);
 
   if (!data) {
     return (
@@ -39,8 +34,7 @@ export default function DebateOfWeek({ data }: Props) {
 
   async function vote(side: "A" | "B") {
     if (voted || !data) return;
-    setVoted(side);
-    localStorage.setItem(`debate-${data._id}`, side);
+    writeVoted(side);
     // Optimistically reflect the vote so percentages appear instantly.
     setCounts((c) => ({
       a: c.a + (side === "A" ? 1 : 0),
