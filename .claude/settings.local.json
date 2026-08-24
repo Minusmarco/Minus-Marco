@@ -63,7 +63,13 @@
       "Bash(curl -s -o /tmp/mm-home.html -w \"HTTP %{http_code}\\\\n\" http://localhost:3000/)",
       "Read(//tmp/**)",
       "mcp__claude-in-chrome__tabs_context_mcp",
-      "PowerShell(Get-Process | Where-Object { $_.ProcessName -match 'node' } | ForEach-Object { Stop-Process -Id $_.Id -Force }; \"stopped\")"
+      "PowerShell(Get-Process | Where-Object { $_.ProcessName -match 'node' } | ForEach-Object { Stop-Process -Id $_.Id -Force }; \"stopped\")",
+      "mcp__5e3bd43c-4eae-4afa-8fc5-2fe7b8efd85d__balance",
+      "mcp__5e3bd43c-4eae-4afa-8fc5-2fe7b8efd85d__models_explore",
+      "mcp__5e3bd43c-4eae-4afa-8fc5-2fe7b8efd85d__generate_video",
+      "mcp__5e3bd43c-4eae-4afa-8fc5-2fe7b8efd85d__media_upload",
+      "mcp__5e3bd43c-4eae-4afa-8fc5-2fe7b8efd85d__sandbox_exec",
+      "mcp__5e3bd43c-4eae-4afa-8fc5-2fe7b8efd85d__media_confirm"
     ]
   }
 }
