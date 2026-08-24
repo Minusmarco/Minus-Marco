@@ -1,7 +1,7 @@
 import Link from "next/link";
 import HeroSection, { FeatureItem } from "@/components/HeroSection";
 import IntroSplash, { type IntroVideoData } from "@/components/IntroSplash";
-import Ticker, { type TickerItem } from "@/components/Ticker";
+import Ticker from "@/components/Ticker";
 import ArticlesPreview from "@/components/ArticlesPreview";
 import CommunityBanner from "@/components/CommunityBanner";
 import CommunityPoll from "@/components/community/CommunityPoll";
@@ -42,15 +42,6 @@ type Video = {
 function youtubeId(url: string): string | null {
   const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([\w-]{11})/);
   return m ? m[1] : null;
-}
-
-// Kept outside the component body: `Date.now()` is an impure call and the
-// lint rule only inspects the literal body of the component/hook that calls
-// it, not helpers it delegates to.
-function isRecentPublish(iso?: string): boolean {
-  if (!iso) return false;
-  const TWO_WEEKS_MS = 14 * 24 * 60 * 60 * 1000;
-  return Date.now() - new Date(iso).getTime() < TWO_WEEKS_MS;
 }
 
 export default async function Home() {
@@ -103,19 +94,11 @@ export default async function Home() {
   }
   const items = reel.slice(0, 6);
 
-  // Ticker shows real recent headlines when there's content, falling back to
-  // its own static labels when the site is still empty. Only genuinely
-  // recent posts get the "New —" treatment.
-  const tickerItems: TickerItem[] = allArticles.slice(0, 5).map((a) => ({
-    label: isRecentPublish(a.publishedAt) ? `New — ${a.title}` : a.title,
-    href: `/articles/${a.slug.current}`,
-  }));
-
   return (
     <main className="flex flex-col flex-1">
       <IntroSplash intro={intro} />
       <HeroSection items={items} />
-      <Ticker items={tickerItems} />
+      <Ticker />
       <Reveal><ArticlesPreview /></Reveal>
       <MissionStrip />
 
