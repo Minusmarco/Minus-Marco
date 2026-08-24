@@ -58,7 +58,12 @@
       "Bash(git status *)",
       "Bash(git diff *)",
       "Bash(node -e ' *)",
-      "Bash(npx eslint *)"
+      "Bash(npx eslint *)",
+      "PowerShell(Get-Process | Where-Object { $_.ProcessName -match 'node|npm' } | Format-Table Id, ProcessName, StartTime -AutoSize)",
+      "Bash(curl -s -o /tmp/mm-home.html -w \"HTTP %{http_code}\\\\n\" http://localhost:3000/)",
+      "Read(//tmp/**)",
+      "mcp__claude-in-chrome__tabs_context_mcp",
+      "PowerShell(Get-Process | Where-Object { $_.ProcessName -match 'node' } | ForEach-Object { Stop-Process -Id $_.Id -Force }; \"stopped\")"
     ]
   }
 }

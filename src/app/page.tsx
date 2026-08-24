@@ -1,5 +1,6 @@
 import Link from "next/link";
 import HeroSection, { FeatureItem } from "@/components/HeroSection";
+import IntroSplash, { type IntroVideoData } from "@/components/IntroSplash";
 import Ticker, { type TickerItem } from "@/components/Ticker";
 import ArticlesPreview from "@/components/ArticlesPreview";
 import CommunityBanner from "@/components/CommunityBanner";
@@ -14,6 +15,7 @@ import {
   allVideosQuery,
   activePollQuery,
   activeDebateQuery,
+  activeIntroVideoQuery,
 } from "@/sanity/lib/queries";
 
 export const revalidate = 60;
@@ -52,12 +54,13 @@ function isRecentPublish(iso?: string): boolean {
 }
 
 export default async function Home() {
-  const [featured, allArticles, videos, poll, debate] = await Promise.all([
+  const [featured, allArticles, videos, poll, debate, intro] = await Promise.all([
     sanityFetch<Article | null>(featuredArticleQuery),
     sanityFetch<Article[]>(allArticlesQuery),
     sanityFetch<Video[]>(allVideosQuery),
     sanityFetch(activePollQuery),
     sanityFetch(activeDebateQuery),
+    sanityFetch<IntroVideoData>(activeIntroVideoQuery),
   ]);
 
   // Feature reel — articles (featured first) interleaved with videos so the
@@ -110,6 +113,7 @@ export default async function Home() {
 
   return (
     <main className="flex flex-col flex-1">
+      <IntroSplash intro={intro} />
       <HeroSection items={items} />
       <Ticker items={tickerItems} />
       <Reveal><ArticlesPreview /></Reveal>

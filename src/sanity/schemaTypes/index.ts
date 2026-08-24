@@ -8,5 +8,6 @@ import { shoutout } from "./shoutout";
 import { video } from "./video";
 import { socialLink } from "./socialLink";
 import { teamMember } from "./teamMember";
+import { introVideo } from "./introVideo";
 
-export const schemaTypes = [article, category, currentlyPlaying, poll, debate, communityQuote, shoutout, video, socialLink, teamMember];
+export const schemaTypes = [article, category, currentlyPlaying, poll, debate, communityQuote, shoutout, video, socialLink, teamMember, introVideo];

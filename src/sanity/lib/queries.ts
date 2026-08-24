@@ -87,6 +87,14 @@ export const allTeamMembersQuery = groq`
   }
 `;
 
+export const activeIntroVideoQuery = groq`
+  *[_type == "introVideo" && active == true] | order(_updatedAt desc)[0] {
+    _id,
+    "videoUrl": video.asset->url,
+    poster
+  }
+`;
+
 export const relatedArticlesQuery = groq`
   *[_type == "article" && _id != $id && count((
     select(
