@@ -18,7 +18,7 @@ const barlow = Barlow_Condensed({
   display: "swap",
 });
 
-const description = "Video game journalism and community by Minus Marco — the expansion pack to your game.";
+const description = "Video game journalism and community by Minus Marco: the expansion pack to your game.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

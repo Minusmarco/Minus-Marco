@@ -78,7 +78,7 @@ export default async function Home() {
         kind: "video",
         label: "Video",
         title: v.title,
-        blurb: v.description ?? "New drop on the channel — tap in.",
+        blurb: v.description ?? "New drop on the channel. Tap in.",
         href: "/videos",
         image: id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : null,
         cta: "Watch Now",

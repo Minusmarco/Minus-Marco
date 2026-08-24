@@ -11,7 +11,7 @@ export const shoutout = defineType({
       name: "socials",
       title: "Social Links",
       type: "array",
-      description: "Add one or more social profiles — each becomes a clickable link.",
+      description: "Add one or more social profiles. Each becomes a clickable link.",
       of: [{ type: "socialLink" }],
     }),
     defineField({
@@ -20,7 +20,7 @@ export const shoutout = defineType({
       type: "image",
       options: { hotspot: true },
       fields: [defineField({ name: "alt", title: "Alt text", type: "string", description: "Describe the badge for screen readers, e.g. \"Verified\" or \"Moderator\"." })],
-      description: "Optional small badge or icon shown next to the name — upload your own.",
+      description: "Optional small badge or icon shown next to the name. Upload your own.",
     }),
     defineField({ name: "note", title: "Shoutout Note", type: "text", rows: 2, validation: (Rule) => Rule.required().max(150) }),
     defineField({

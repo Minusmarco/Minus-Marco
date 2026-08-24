@@ -89,7 +89,7 @@ export default function CurrentlyPlaying({ data }: Props) {
             )}
           </div>
 
-          <p className="mt-6 text-xs text-text-muted font-sans">— Marco Hernandez</p>
+          <p className="mt-6 text-xs text-text-muted font-sans">Marco Hernandez</p>
         </div>
       </div>
     </motion.div>

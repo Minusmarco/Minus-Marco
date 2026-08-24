@@ -35,7 +35,7 @@ export default async function VideosPage() {
             VIDEOS
           </h1>
           <p className="mt-6 text-text-secondary text-lg max-w-xl leading-relaxed">
-            Deep-dives, previews, and reactions. Click any thumbnail to watch without leaving the page.
+            Deep-dives, previews, and reactions from the channel.
           </p>
         </div>
       </section>

@@ -142,7 +142,7 @@ export default function CommunityPoll({ data }: Props) {
           className="text-xs text-text-muted font-sans text-center"
         >
           {total > 0
-            ? `${total.toLocaleString()} ${total === 1 ? "vote" : "votes"} cast — thanks for participating.`
+            ? `${total.toLocaleString()} ${total === 1 ? "vote" : "votes"} cast. Thanks for participating.`
             : "Vote cast! Thanks for participating."}
         </motion.p>
       ) : (

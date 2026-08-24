@@ -24,7 +24,7 @@ const MENU = [
   { label: "Articles", sub: "Reviews, essays & opinion", href: "/articles" },
   { label: "Videos", sub: "Deep-dives & previews", href: "/videos" },
   { label: "Community", sub: "Polls, debates & shoutouts", href: "/community" },
-  { label: "About", sub: "Player one — Marco", href: "/about" },
+  { label: "About", sub: "Player one: Marco", href: "/about" },
 ];
 
 const fadeUp = { hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0 } };
@@ -33,7 +33,7 @@ const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.08, delay
 const PLACEHOLDER: FeatureItem = {
   kind: "article",
   label: "Coming Soon",
-  title: "New game — first drop loading",
+  title: "New game: first drop loading",
   blurb: "Marco is loading up the first story. Hit Articles to look around in the meantime.",
   href: "/articles",
   image: null,

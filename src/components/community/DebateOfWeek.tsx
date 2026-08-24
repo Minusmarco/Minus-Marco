@@ -161,11 +161,11 @@ export default function DebateOfWeek({ data }: Props) {
           className="text-xs text-text-muted font-sans text-center"
         >
           {total > 0
-            ? `${total.toLocaleString()} ${total === 1 ? "vote" : "votes"} so far — bold choice.`
+            ? `${total.toLocaleString()} ${total === 1 ? "vote" : "votes"} so far. Bold choice.`
             : "You've picked your side. Bold choice."}
         </motion.p>
       ) : (
-        <p className="text-xs text-text-muted font-sans text-center">Pick a side — no fence sitting.</p>
+        <p className="text-xs text-text-muted font-sans text-center">Pick a side. No fence sitting.</p>
       )}
     </div>
   );

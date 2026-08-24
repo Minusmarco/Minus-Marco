@@ -30,7 +30,7 @@ export const article = defineType({
       type: "array",
       of: [{ type: "reference", to: [{ type: "category" }] }],
       validation: (Rule) => Rule.required().min(1).unique(),
-      description: "Pick one or more — articles can span multiple categories.",
+      description: "Pick one or more. Articles can span multiple categories.",
     }),
     defineField({
       // Deprecated: superseded by `categories`. Hidden so legacy data on older
@@ -93,7 +93,7 @@ export const article = defineType({
       title: "Game Info Box",
       type: "object",
       description:
-        "Optional spec box shown at the end of the article — for reviews and previews. Leave the game name blank to hide the box entirely.",
+        "Optional spec box shown at the end of the article, for reviews and previews. Leave the game name blank to hide the box entirely.",
       options: { collapsible: true, collapsed: true },
       fields: [
         defineField({
@@ -127,12 +127,12 @@ export const article = defineType({
           type: "string",
           options: {
             list: [
-              { title: "E — Everyone", value: "E" },
-              { title: "E10+ — Everyone 10+", value: "E10+" },
-              { title: "T — Teen", value: "T" },
-              { title: "M — Mature 17+", value: "M" },
-              { title: "AO — Adults Only 18+", value: "AO" },
-              { title: "RP — Rating Pending", value: "RP" },
+              { title: "E: Everyone", value: "E" },
+              { title: "E10+: Everyone 10+", value: "E10+" },
+              { title: "T: Teen", value: "T" },
+              { title: "M: Mature 17+", value: "M" },
+              { title: "AO: Adults Only 18+", value: "AO" },
+              { title: "RP: Rating Pending", value: "RP" },
             ],
           },
         }),
@@ -159,7 +159,7 @@ export const article = defineType({
           title: "Developer Links",
           type: "array",
           of: [{ type: "socialLink" }],
-          description: "Developer/publisher socials — each shows as a clickable icon.",
+          description: "Developer/publisher socials. Each shows as a clickable icon.",
         }),
         defineField({
           name: "editorsNote",

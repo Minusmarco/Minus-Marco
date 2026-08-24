@@ -14,7 +14,7 @@ export default function SubscribeBanner() {
             Get every story straight to your inbox.
           </h3>
           <p className="mt-2 text-sm text-text-secondary max-w-md leading-relaxed">
-            New reviews, essays, and community updates — sent whenever Marco publishes, never more.
+            New reviews, essays, and community updates, sent whenever Marco publishes, never more.
           </p>
         </div>
         <a

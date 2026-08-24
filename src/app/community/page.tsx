@@ -49,7 +49,7 @@ export default async function CommunityPage() {
             STORY.
           </h1>
           <p className="mt-6 text-text-secondary text-lg max-w-xl leading-relaxed">
-            Gaming culture shaped us. This is the space where the community shows up — polls, debates, shoutouts, and more.
+            Gaming culture shaped us. This is the space where the community shows up: polls, debates, shoutouts, and more.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a

@@ -120,7 +120,7 @@ export default function VideoGrid({ videos }: { videos: Video[] }) {
               href={v.youtubeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${v.title} — watch on YouTube (opens in new tab)`}
+              aria-label={`${v.title}: watch on YouTube (opens in new tab)`}
               whileHover={{ y: -4 }}
               transition={{ duration: 0.2 }}
               className={cardClass}

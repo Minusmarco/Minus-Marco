@@ -38,7 +38,7 @@ export const teamMember = defineType({
       title: "Links",
       type: "array",
       of: [{ type: "socialLink" }],
-      description: "Optional — portfolio or social links, shown as icons.",
+      description: "Optional: portfolio or social links, shown as icons.",
     }),
     defineField({
       name: "order",

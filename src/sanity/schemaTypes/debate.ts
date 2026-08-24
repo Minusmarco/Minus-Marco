@@ -12,7 +12,7 @@ export const debate = defineType({
     defineField({ name: "active", title: "Active Debate", type: "boolean", initialValue: true }),
     defineField({
       name: "votesA",
-      title: "Votes — Side A",
+      title: "Votes: Side A",
       type: "number",
       initialValue: 0,
       readOnly: true,
@@ -20,7 +20,7 @@ export const debate = defineType({
     }),
     defineField({
       name: "votesB",
-      title: "Votes — Side B",
+      title: "Votes: Side B",
       type: "number",
       initialValue: 0,
       readOnly: true,
